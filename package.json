@@ -1,0 +1,37 @@
+{
+  "name": "vue2mapbox-gl",
+  "version": "0.0.0",
+  "description": "My magnificent module",
+  "license": "MIT",
+  "repository": "SiggyF/vue2mapbox-gl",
+  "author": {
+    "name": "Fedor Baart",
+    "email": "fedor.baart@deltares.nl",
+    "url": "github.com/openearth/vue2mapbox-gl"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && nyc ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "coveralls": "^2.11.12",
+    "nyc": "^10.0.0",
+    "xo": "^0.17.0"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  }
+}
