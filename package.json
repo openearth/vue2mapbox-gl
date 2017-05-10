@@ -13,6 +13,8 @@
     "node": ">=4"
   },
   "scripts": {
+    "build-dev": "webpack --hide-modules --colors --progress --env development --display-error-details",
+    "build": "webpack --hide-modules --colors --progress --env production --display-error-details",
     "test": "xo && nyc ava"
   },
   "files": [
@@ -21,11 +23,18 @@
   "keywords": [
     ""
   ],
-  "dependencies": {},
+  "dependencies": {
+    "mapbox-gl": "^0.37.0",
+    "vue": "^2.3.3"
+  },
   "devDependencies": {
     "ava": "^0.17.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
     "coveralls": "^2.11.12",
     "nyc": "^10.0.0",
+    "webpack": "^2.5.1",
+    "webpack-node-externals": "^1.6.0",
     "xo": "^0.17.0"
   },
   "nyc": {
