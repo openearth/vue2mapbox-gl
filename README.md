@@ -1,6 +1,6 @@
 # vue2mapbox-gl [![Build Status](https://travis-ci.org/SiggyF/vue2mapbox-gl.svg?branch=master)](https://travis-ci.org/SiggyF/vue2mapbox-gl) [![Coverage Status](https://coveralls.io/repos/github/SiggyF/vue2mapbox-gl/badge.svg?branch=master)](https://coveralls.io/github/SiggyF/vue2mapbox-gl?branch=master)
 
-> My magnificent module
+> Vue components for mapbox-gl. Api similar to Vue2Leaflet.
 
 
 ## Install
