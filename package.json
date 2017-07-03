@@ -1,6 +1,6 @@
 {
   "name": "vue2mapbox-gl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "My magnificent module",
   "license": "MIT",
   "repository": "SiggyF/vue2mapbox-gl",
@@ -17,9 +17,7 @@
     "build": "webpack --hide-modules --colors --progress --env production --display-error-details",
     "test": "xo && nyc ava"
   },
-  "main": [
-    "dist/vue2mapbox-gl.js"
-  ],
+  "main": "dist/vue2mapbox-gl.js",
   "keywords": [
     ""
   ],
