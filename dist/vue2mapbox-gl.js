@@ -95,7 +95,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\nexports.VMapbox = undefined;\n\nvar _VMapbox = __webpack_require__(0);\n\nvar _VMapbox2 = _interopRequireDefault(_VMapbox);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.VMapbox = _VMapbox2.default;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFpbi5qcz8zNDc5Il0sIm5hbWVzIjpbIlZNYXBib3giXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTs7Ozs7O1FBR0NBLE8iLCJmaWxlIjoiMi5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBWTWFwYm94IGZyb20gJy4vY29tcG9uZW50cy9WTWFwYm94LnZ1ZSc7XG5cbmV4cG9ydCB7XG5cdFZNYXBib3hcbn1cblxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9tYWluLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.VMapbox = undefined;\n\nvar _VMapbox = __webpack_require__(0);\n\nvar _VMapbox2 = _interopRequireDefault(_VMapbox);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.VMapbox = _VMapbox2.default;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFpbi5qcz8zNDc5Il0sIm5hbWVzIjpbIlZNYXBib3giXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTs7Ozs7O1FBRUVBLE8iLCJmaWxlIjoiMi5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBWTWFwYm94IGZyb20gJy4vY29tcG9uZW50cy9WTWFwYm94LnZ1ZSc7XG5leHBvcnQge1xuICBWTWFwYm94XG59O1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL21haW4uanMiXSwic291cmNlUm9vdCI6IiJ9");
 
 /***/ }),
 /* 3 */
