@@ -61,6 +61,10 @@ config.module = {
       // important: exclude files in node_modules, otherwise it's going to be really slow!
       exclude: /node_modules|vendor/
     },
+    {
+      test: /\.css$/,
+      use: [ 'style-loader', 'css-loader' ]
+    },
   ]
 };
 
