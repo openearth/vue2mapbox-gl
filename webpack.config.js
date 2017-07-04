@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = module.exports = {
-  plugins: []
+  plugins: [new BundleAnalyzerPlugin()]
 };
 
 // Set context to root of project
@@ -21,7 +22,7 @@ config.output = {
   libraryTarget: "umd",
 };
 
-config.externals = [{
+const externals = {
   'mapbox-gl': {
     umd: 'mapbox-gl',
     root: 'mapbox-gl',
@@ -37,8 +38,17 @@ config.externals = [{
     commonjs2: 'vue',
     commonjs: 'vue',
     amd: 'vue'
+  },
+  '_': {
+    umd: 'lodash',
+    global: '_',
+    root: '_',
+    commonjs2: 'lodash',
+    commonjs: 'lodash',
+    amd: 'lodash'
   }
-}];
+};
+config.externals = [nodeExternals()];
 // Resolver config
 config.resolve = {
   extensions: ['.js', '.vue'],
