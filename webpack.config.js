@@ -22,7 +22,7 @@ config.output = {
   libraryTarget: "umd",
 };
 
-config.externals = [{
+const externals = {
   'mapbox-gl': {
     umd: 'mapbox-gl',
     root: 'mapbox-gl',
@@ -38,8 +38,17 @@ config.externals = [{
     commonjs2: 'vue',
     commonjs: 'vue',
     amd: 'vue'
+  },
+  '_': {
+    umd: 'lodash',
+    global: '_',
+    root: '_',
+    commonjs2: 'lodash',
+    commonjs: 'lodash',
+    amd: 'lodash'
   }
-}];
+};
+config.externals = [nodeExternals()];
 // Resolver config
 config.resolve = {
   extensions: ['.js', '.vue'],
