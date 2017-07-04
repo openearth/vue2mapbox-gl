@@ -13,33 +13,31 @@ $ npm install --save vue2mapbox-gl
 ## Usage
 
 ```js
-const vue2mapboxGl = require('vue2mapbox-gl');
+import Vue2MapboxGL from 'vue2mapbox-gl';
 
-vue2mapboxGl('unicorns');
-//=> 'unicorns & rainbows'
+// Use the plugin
+Vue.use(Vue2MapboxGL);
 ```
-
 
 ## API
 
-### vue2mapboxGl(input, [options])
+```html
 
-#### input
+<v-mapbox
+  access-token="pk...."
+  map-style="mapbox://styles/mapbox/satellite-streets-v10"
+  :center="[52, 3]"
+  :zoom="10"
+  :pitch="60"
+  :bearing="-132"
+  :min-zoom="5"
+  id="map"
+  ref="map"
+></v-mapbox>
 
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-##### foo
-
-Type: `boolean`<br>
-Default: `false`
-
-Lorem ipsum.
+```
 
 
 ## License
 
-MIT © [Fedor Baart](https://github.com/openearth/vue2mapbox-gl)
+GPLv3 © [Fedor Baart](https://github.com/openearth/vue2mapbox-gl)

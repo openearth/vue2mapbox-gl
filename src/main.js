@@ -1,4 +1,7 @@
 import VMapbox from './components/VMapbox.vue';
-export {
-  VMapbox
+
+function install(Vue, options) {
+  console.log('Installing', Vue, options);
+  Vue.component('v-mapbox', VMapbox);
 };
+export default install;
