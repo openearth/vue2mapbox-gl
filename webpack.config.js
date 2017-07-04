@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = module.exports = {
-  plugins: []
+  plugins: [new BundleAnalyzerPlugin()]
 };
 
 // Set context to root of project
