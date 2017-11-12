@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "My magnificent module",
   "license": "MIT",
-  "repository": "SiggyF/vue2mapbox-gl",
+  "repository": "openearth/vue2mapbox-gl",
   "author": {
     "name": "Fedor Baart",
     "email": "fedor.baart@deltares.nl",
