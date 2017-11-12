@@ -11,6 +11,7 @@ $ npm install --save vue2mapbox-gl
 
 
 ## Usage
+Import using umd, for example using an es6 import.
 
 ```js
 import Vue2MapboxGL from 'vue2mapbox-gl';
