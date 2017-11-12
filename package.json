@@ -1,6 +1,6 @@
 {
   "name": "vue2mapbox-gl",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "My magnificent module",
   "license": "MIT",
   "repository": "openearth/vue2mapbox-gl",
@@ -31,7 +31,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "coveralls": "^2.11.12",
-    "css-loader": "^0.28.4",
+    "css-loader": "^0.28.7",
     "nyc": "^10.0.0",
     "style-loader": "^0.18.2",
     "vue-loader": "^13.0.0",

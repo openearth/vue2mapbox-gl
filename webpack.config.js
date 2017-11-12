@@ -41,7 +41,7 @@ const externals = {
     commonjs: 'vue',
     amd: 'vue'
   },
-  '_': {
+  'lodash': {
     umd: 'lodash',
     global: '_',
     root: '_',
@@ -50,7 +50,8 @@ const externals = {
     amd: 'lodash'
   }
 };
-config.externals = [nodeExternals()];
+// for node target, use nodeexternals [nodeExternals()];
+config.externals = externals;
 // Resolver config
 config.resolve = {
   extensions: ['.js', '.vue'],
