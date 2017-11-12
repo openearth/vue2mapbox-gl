@@ -7,6 +7,9 @@ const config = module.exports = {
   plugins: [new BundleAnalyzerPlugin()]
 };
 
+// export to web loadable objects
+config.target = 'web';
+
 // Set context to root of project
 
 // Client entry
@@ -18,8 +21,7 @@ config.entry = {
 config.output = {
   path: path.resolve(__dirname, 'dist'),
   filename: 'vue2mapbox-gl.js',
-  library: ["Vue2MapboxGL"],
-  libraryTarget: "umd",
+  library: ["Vue2MapboxGL"]
 };
 
 const externals = {
