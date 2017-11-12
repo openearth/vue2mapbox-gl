@@ -21,7 +21,8 @@ config.entry = {
 config.output = {
   path: path.resolve(__dirname, 'dist'),
   filename: 'vue2mapbox-gl.js',
-  library: ["Vue2MapboxGL"]
+  library: ["Vue2MapboxGL"],
+  libraryTarget: 'umd'
 };
 
 const externals = {
