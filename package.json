@@ -15,7 +15,8 @@
   "scripts": {
     "build-dev": "webpack --hide-modules --colors --progress --env development --display-error-details",
     "build": "webpack --hide-modules --colors --progress --env production --display-error-details",
-    "test": "xo && nyc ava"
+    "lint": "eslint --ext .js,.vue src test",
+    "test": "nyc ava"
   },
   "main": "dist/vue2mapbox-gl.js",
   "keywords": [
@@ -29,9 +30,12 @@
   "devDependencies": {
     "ava": "^0.17.0",
     "babel-core": "^6.24.1",
+    "babel-eslint": "^8.0.3",
     "babel-loader": "^7.0.0",
     "coveralls": "^2.11.12",
     "css-loader": "^0.28.7",
+    "eslint": "^4.13.1",
+    "eslint-plugin-html": "^4.0.1",
     "nyc": "^10.0.0",
     "style-loader": "^0.18.2",
     "vue-loader": "^13.0.0",
@@ -39,8 +43,7 @@
     "vue-template-compiler": "^2.3.4",
     "webpack": "^2.5.1",
     "webpack-bundle-analyzer": "^2.8.2",
-    "webpack-node-externals": "^1.6.0",
-    "xo": "^0.17.0"
+    "webpack-node-externals": "^1.6.0"
   },
   "nyc": {
     "reporter": [
