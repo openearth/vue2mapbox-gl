@@ -157,6 +157,11 @@ export default {
     });
 
   },
+  watch: {
+    layers(old) {
+      console.log('layers changed', old);
+    }
+  },
   methods: {
   }
 };
