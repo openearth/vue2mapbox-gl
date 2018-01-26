@@ -1,7 +1,7 @@
 {
   "name": "vue2mapbox-gl",
-  "version": "0.3.0",
-  "description": "My magnificent module",
+  "version": "0.3.1",
+  "description": "Vue >2 integration of mapbox. ",
   "license": "MIT",
   "repository": "openearth/vue2mapbox-gl",
   "author": {
