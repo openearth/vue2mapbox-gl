@@ -1,7 +1,15 @@
 import _ from 'lodash';
 import mapboxgl from 'mapbox-gl';
 import {propsBinder, propsDefaults} from '../utils/propsBinder.js';
+import {bindMapEvents, bindLayerEvents} from '../utils/eventsBinder.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
+
+const mapEvents = [
+  'load',
+  'zoomstart',
+  'zoomend',
+  'zoom'
+]
 
 // props that we want to proxy
 // some are disabled pending testing
@@ -137,14 +145,17 @@ export default {
     _.assign(options, defaults);
     options.container = this.$el;
 
-
     this.map = new mapboxgl.Map(options);
+    // emit a map created event
+    this.$emit('mb-created', this.map);
+    bindMapEvents(this, this.map, mapEvents);
+
 
     // propsBinder(this, this.map, props);
 
 
 
-    this.map.on('load', () => {
+    this.$on('mb-load', () => {
       _.each(
         this.$children,
         (child) => {
