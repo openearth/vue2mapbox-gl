@@ -13,8 +13,9 @@
     "node": ">=4"
   },
   "scripts": {
-    "build-dev": "webpack --hide-modules --colors --progress --env development --display-error-details",
-    "build": "webpack --hide-modules --colors --progress --env production --display-error-details",
+    "build-dev:webpack": "webpack --hide-modules --colors --progress --env development --display-error-details",
+    "build:webpack": "webpack --hide-modules --colors --progress --env production --display-error-details",
+    "build": "rollup -c",
     "lint": "eslint --ext .js,.vue src test",
     "test": "nyc ava"
   },
@@ -22,11 +23,7 @@
   "keywords": [
     ""
   ],
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "mapbox-gl": "^0.44.0",
-    "vue": "^2.5.13"
-  },
+  "dependencies": {},
   "devDependencies": {
     "ava": "^0.17.0",
     "babel-core": "^6.24.1",
@@ -37,6 +34,8 @@
     "eslint": "^4.16.0",
     "eslint-plugin-html": "^4.0.2",
     "nyc": "^10.0.0",
+    "rollup-plugin-buble": "^0.19.1",
+    "rollup-plugin-vue": "^3.0.0",
     "style-loader": "^0.18.2",
     "vue-loader": "^13.7.0",
     "vue-style-loader": "^3.1.1",
@@ -50,5 +49,10 @@
       "lcov",
       "text"
     ]
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.4",
+    "vue": "^2.5.13",
+    "mapbox-gl": "^0.44.0"
   }
 }
