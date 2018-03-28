@@ -16,6 +16,10 @@ Import using umd, for example using an es6 import.
 ```js
 import Vue2MapboxGL from 'vue2mapbox-gl';
 
+// You might want to import the relevant css, for example:
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
 // Use the plugin
 Vue.use(Vue2MapboxGL);
 ```
@@ -35,6 +39,14 @@ Vue.use(Vue2MapboxGL);
   id="map"
   ref="map"
 ></v-mapbox>
+
+<!-- You can also add the other components, for example the controls -->
+<v-mapbox
+  access-token="pk...."
+  map-style="mapbox://styles/mapbox/satellite-streets-v10"
+>
+ <v-mapbox-navigation-control></v-mapbox-navigation-control>
+</v-mapbox>
 
 ```
 

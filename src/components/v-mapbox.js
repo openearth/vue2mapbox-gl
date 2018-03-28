@@ -2,7 +2,6 @@ import _ from 'lodash';
 import mapboxgl from 'mapbox-gl';
 import {propsBinder, propsDefaults} from '../utils/propsBinder.js';
 import {bindMapEvents, bindLayerEvents} from '../utils/eventsBinder.js';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 const mapEvents = [
   'load',
