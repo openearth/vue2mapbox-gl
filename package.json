@@ -20,7 +20,10 @@
   },
   "main": "dist/vue2mapbox-gl.js",
   "keywords": [
-    ""
+    "vue",
+    "mapbox",
+    "mapbox-gl",
+    "vue2"
   ],
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^2.2.0",
