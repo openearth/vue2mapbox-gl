@@ -28,8 +28,10 @@
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^2.2.0",
     "lodash": "^4.17.11",
-    "mapbox-gl": "^0.50.0",
     "vue": "^2.5.13"
+  },
+  "peerDependencies": {
+    "mapbox-gl": ">=0.50.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
