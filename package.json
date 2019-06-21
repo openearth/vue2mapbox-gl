@@ -13,8 +13,8 @@
     "node": ">=4"
   },
   "scripts": {
-    "build-dev": "webpack --hide-modules --colors --progress --env development --display-error-details",
-    "build": "webpack --hide-modules --colors --progress --env production --display-error-details",
+    "build-dev": "webpack --hide-modules --colors --progress --mode development --display-error-details",
+    "build": "webpack --hide-modules --colors --progress --mode production --display-error-details",
     "lint": "eslint --ext .js,.vue src test",
     "test": "nyc ava",
     "storybook": "start-storybook -p 6006",
