@@ -29,7 +29,8 @@
     "vue2"
   ],
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.4.0"
+    "@mapbox/mapbox-gl-geocoder": "^4.4.0",
+    "resize-observer-polyfill": "^1.5.1"
   },
   "peerDependencies": {
     "mapbox-gl": ">=1.0.0",
