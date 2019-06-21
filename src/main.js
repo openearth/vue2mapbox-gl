@@ -5,6 +5,8 @@ import VMapboxGeocoder from './components/VMapboxGeocoder.vue';
 import VMapboxNavigationControl from './components/VMapboxNavigationControl.vue';
 
 function install(Vue, options) {
+  // This component can install itself by using Vue.use(Vue2MapboxGl)
+  // That will call this install function.
   Vue.component('v-mapbox', VMapbox);
   Vue.component('v-mapbox-layer', VMapboxLayer);
   Vue.component('v-mapbox-source', VMapboxSource);
