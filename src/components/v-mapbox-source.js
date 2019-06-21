@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export default {
   name: 'v-mapbox-source',
   data () {
@@ -18,7 +16,8 @@ export default {
   },
   methods: {
     deferredMountedTo(map) {
-      map.addSource(this.options.id, _.omit(this.options, ['id']));
+      let {id, ...options } = this.options
+      map.addSource(id, options)
     }
   }
 };
