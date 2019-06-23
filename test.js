@@ -2,6 +2,7 @@ import 'URL'
 import Vue from 'vue'
 import install from './src/main'
 import { propsDefaults } from './src/utils/propsBinder'
+import VMapbox from './src/components/VMapbox'
 
 
 test('install', () => {
@@ -26,6 +27,13 @@ test('utils', () => {
   }
   let defaults = propsDefaults(props)
   let expected = {interactive: true}
+  expect(defaults).toEqual(expected)
+
+})
+
+test('utils of VMapbox', () => {
+  let defaults = propsDefaults(VMapbox.props)
+  let expected = {}
   expect(defaults).toEqual(expected)
 
 })
