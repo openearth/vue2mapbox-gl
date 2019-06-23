@@ -3,6 +3,10 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 export default {
   name: 'v-mapbox-geocoder',
+  // return rendered slots only
+  render() {
+    return this.$scopedSlots.default({})
+  },
   data () {
     return {
     };
