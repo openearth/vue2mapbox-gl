@@ -1,7 +1,6 @@
-import _ from 'lodash';
-import mapboxgl from 'mapbox-gl';
-import {propsBinder, propsDefaults} from '../utils/propsBinder.js';
-import {bindMapEvents, bindLayerEvents} from '../utils/eventsBinder.js';
+import mapboxgl from 'mapbox-gl'
+import {propsBinder, propsDefaults} from '../utils/propsBinder.js'
+import {bindMapEvents, bindLayerEvents} from '../utils/eventsBinder.js'
 
 const mapEvents = [
   'load',
@@ -121,7 +120,7 @@ const props = {
   //   type: Boolean,
   //   default: true
   // }
-};
+}
 
 export default {
   name: 'v-mapbox',
@@ -129,49 +128,52 @@ export default {
     return {
       map: null,
       layers: []
-    };
+    }
   },
   props: props,
   mounted () {
     //Initialze Map
-    let options = {};
-    mapboxgl.accessToken = this.accessToken;
+    let options = {}
+    mapboxgl.accessToken = this.accessToken
+
     // renamed properties
     if (this.mapStyle) {
-      options.style = this.mapStyle;
+      options.style = this.mapStyle
     }
-    let defaults = propsDefaults(this.$props);
-    _.assign(options, defaults);
-    options.container = this.$el;
+    let defaults = propsDefaults(this.$props)
+    Object.assign(options, defaults)
+    options.container = this.$el
 
-    this.map = new mapboxgl.Map(options);
+    this.map = new mapboxgl.Map(options)
     // emit a map created event
-    this.$emit('mb-created', this.map);
-    bindMapEvents(this, this.map, mapEvents);
+    this.$emit('mb-created', this.map)
+    bindMapEvents(this, this.map, mapEvents)
 
-
-    // propsBinder(this, this.map, props);
-
-
-
+    // ones the map  is loaded, add al layers that were present during mount time
+    // we can consider watching our children.
     this.$on('mb-load', () => {
-      _.each(
-        this.$children,
+      this.$children.forEach(
         (child) => {
-          child.deferredMountedTo(this.map);
+          child.deferredMountedTo(this.map)
+          // if we have a layer. add it to  layers
           if (child.$options.name === 'v-mapbox-layer') {
-            this.layers.push(child.options);
+            this.layers.push(child.options)
           }
         }
-      );
-    });
-
-  },
-  watch: {
-    layers(old) {
-      console.log('layers changed', old);
-    }
+      )
+    })
+    // Mapbox has some resize issues
+    // Create an observer  on this object
+    // Call resize on the map when we change szie
+    let observer = new ResizeObserver(this.resize)
+    observer.observe(this.$el)
+    this.resizeObserver = observer
   },
   methods: {
+    resize() {
+      if (this.map) {
+        this.map.resize()
+      }
+    }
   }
-};
+}
