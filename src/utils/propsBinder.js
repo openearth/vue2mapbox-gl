@@ -17,6 +17,10 @@ function propsDefaults (props, options) {
   let entries = Object.entries(props)
   let result = {}
   entries.forEach(([key, value]) => {
+    // if  value is not set, we're  done
+    if (value === undefined || value === null) {
+      return
+    }
     if (value.default !== null && value.default !== undefined) {
       result[key] = value.default
     }

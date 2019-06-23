@@ -23,7 +23,8 @@ test('utils', () => {
     },
     minZoom: {
       type: Number
-    }
+    },
+    bearing: undefined
   }
   let defaults = propsDefaults(props)
   let expected = {interactive: true}
