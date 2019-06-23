@@ -1,5 +1,14 @@
-var vue2MapboxGl =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("@mapbox/mapbox-gl-geocoder"), require("mapbox-gl"));
+	else if(typeof define === 'function' && define.amd)
+		define(["@mapbox/mapbox-gl-geocoder", "mapbox-gl"], factory);
+	else if(typeof exports === 'object')
+		exports["vue2MapboxGl"] = factory(require("@mapbox/mapbox-gl-geocoder"), require("mapbox-gl"));
+	else
+		root["vue2MapboxGl"] = factory(root["@mapbox/mapbox-gl-geocoder"], root["mapbox-gl"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE__mapbox_mapbox_gl_geocoder__, __WEBPACK_EXTERNAL_MODULE_mapbox_gl__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -442,7 +451,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = undefined;\n\n//# sourceURL=webpack://vue2MapboxGl/external_%7B%22umd%22:%22@mapbox/mapbox-gl-geocoder%22,%22root%22:%22@mapbox/mapbox-gl-geocoder%22,%22global%22:%22@mapbox/mapbox-gl-geocoder%22,%22commonjs2%22:%22@mapbox/mapbox-gl-geocoder%22,%22commonjs%22:%22@mapbox/mapbox-gl-geocoder%22,%22amd%22:%22@mapbox/mapbox-gl-geocoder%22%7D?");
+eval("module.exports = __WEBPACK_EXTERNAL_MODULE__mapbox_mapbox_gl_geocoder__;\n\n//# sourceURL=webpack://vue2MapboxGl/external_%7B%22umd%22:%22@mapbox/mapbox-gl-geocoder%22,%22root%22:%22@mapbox/mapbox-gl-geocoder%22,%22global%22:%22@mapbox/mapbox-gl-geocoder%22,%22commonjs2%22:%22@mapbox/mapbox-gl-geocoder%22,%22commonjs%22:%22@mapbox/mapbox-gl-geocoder%22,%22amd%22:%22@mapbox/mapbox-gl-geocoder%22%7D?");
 
 /***/ }),
 
@@ -453,8 +462,9 @@ eval("module.exports = undefined;\n\n//# sourceURL=webpack://vue2MapboxGl/extern
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = undefined;\n\n//# sourceURL=webpack://vue2MapboxGl/external_%7B%22umd%22:%22mapbox-gl%22,%22root%22:%22mapbox-gl%22,%22global%22:%22mapbox-gl%22,%22commonjs2%22:%22mapbox-gl%22,%22commonjs%22:%22mapbox-gl%22,%22amd%22:%22mapbox-gl%22%7D?");
+eval("module.exports = __WEBPACK_EXTERNAL_MODULE_mapbox_gl__;\n\n//# sourceURL=webpack://vue2MapboxGl/external_%7B%22umd%22:%22mapbox-gl%22,%22root%22:%22mapbox-gl%22,%22global%22:%22mapbox-gl%22,%22commonjs2%22:%22mapbox-gl%22,%22commonjs%22:%22mapbox-gl%22,%22amd%22:%22mapbox-gl%22%7D?");
 
 /***/ })
 
 /******/ });
+});

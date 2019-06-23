@@ -15,7 +15,8 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: filename,
-      library: 'vue2MapboxGl'
+      library: 'vue2MapboxGl',
+      libraryTarget: 'umd'
     },
     externals: {
       // don't include lodash in the bundle, rename to lodash
