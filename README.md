@@ -91,6 +91,9 @@ export default {
 }
 ```
 
+## Styling
+
+The component adds a vue2mapbox-gl class to the main element and styles that as `width: 100%;` and `height: 100%;`.
 
 ## License
 

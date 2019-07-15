@@ -56,9 +56,6 @@ storiesOf('Map', module)
       template: mapTemplate,
       mounted () {
         this.normal()
-        setTimeout(() => {this.small}, 1000)
-        setTimeout(() => {this.big}, 3000)
-        setTimeout(() => {this.normal}, 4000)
         button('small', () => {
           this.small()
         })
