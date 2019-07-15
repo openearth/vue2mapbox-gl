@@ -103,6 +103,9 @@ Mapbox adds a `mapboxgl-map` class to the main element. You can style that eleme
 ```
 
 
+## Development
+Please feel free to submit pull requests or fork the repository. You can test the current codebase  with `npm run test` and some examples  are  available in the storybook, which you can start by `npm run storybook`.
+
 
 ## License
 
