@@ -70,7 +70,7 @@ Or you can add a custom component as a layer
   access-token="pk...."
   map-style="mapbox://styles/mapbox/satellite-streets-v10"
 >
- <my-layer></my-layer>
+ <custom-layer></custom-layer>
 </v-mapbox>
 ```
 
