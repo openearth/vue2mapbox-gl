@@ -1,16 +1,20 @@
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 function propsBinder(vueElement, mapboxElement, props) {
-    let keys = Object.keys(props)
-    keys.forEach((key, i) => {
-        let setMethodName = 'set' + capitalizeFirstLetter(key)
-        let deepValue = (props[key].type === Object)
-        vueElement.$watch(key, (newVal, oldVal) => {
-            mapboxElement[setMethodName](newVal)
-        })
+  let keys = Object.keys(props)
+  keys.forEach((key, i) => {
+    let setMethodName = 'set' + capitalizeFirstLetter(key)
+    let keyToWatch = key
+    if (key === 'style') {
+      // for style watch the mapStyle property
+      keyToWatch = 'mapStyle'
+    }
+    vueElement.$watch(keyToWatch, (newVal, oldVal) => {
+      mapboxElement[setMethodName](newVal)
     })
+  })
 }
 
 function propsDefaults (props, options) {
@@ -29,6 +33,6 @@ function propsDefaults (props, options) {
 }
 
 export {
-    propsBinder,
-    propsDefaults
+  propsBinder,
+  propsDefaults
 }
