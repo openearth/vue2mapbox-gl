@@ -93,7 +93,16 @@ export default {
 
 ## Styling
 
-The component adds a vue2mapbox-gl class to the main element and styles that as `width: 100%;` and `height: 100%;`.
+Mapbox adds a `mapboxgl-map` class to the main element. You can style that element so the element fits it's parent container.
+
+``` css
+.mapboxgl-map {
+  width: 100%;
+  height: 100%;
+}
+```
+
+
 
 ## License
 
