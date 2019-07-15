@@ -145,6 +145,10 @@ export default {
     options.container = this.$el
 
     this.map = new mapboxgl.Map(options)
+
+    // listen to property changes and set the corresponding data in mapbox
+    propsBinder(this, this.map, options)
+
     // emit a map created event
     this.$emit('mb-created', this.map)
     bindMapEvents(this, this.map, mapEvents)
