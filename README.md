@@ -40,17 +40,71 @@ Vue.use(Vue2MapboxGL);
   :min-zoom="5"
   id="map"
   ref="map"
-></v-mapbox>
+>
+</v-mapbox>
+```
+Using the example above you can use the map reference available from `$refs.map.map` to access the mapbox map object.
+For example in the mounted method:
 
-<!-- You can also add the other components, for example the controls -->
+``` js
+mounted() {
+  let map = this.$refs.map.map
+  map.on('load', () => {
+  map.addLayer(style)
+})
+```
+
+You can also add the other components, for example the controls.
+``` html
 <v-mapbox
   access-token="pk...."
   map-style="mapbox://styles/mapbox/satellite-streets-v10"
 >
  <v-mapbox-navigation-control></v-mapbox-navigation-control>
 </v-mapbox>
-
 ```
+
+Or you can add a custom component as a layer
+``` html
+<v-mapbox
+  access-token="pk...."
+  map-style="mapbox://styles/mapbox/satellite-streets-v10"
+>
+ <custom-layer></custom-layer>
+</v-mapbox>
+```
+
+In this approach you can implement a component with a method `deferredMountedTo`. This idea was taken from Vue2Leaflet. Another approach is to use the inject functionality of vue. This is a minimal example.
+
+``` js
+export default {
+  name: 'custom-layer',
+  render() {
+    // you
+    return this.$slots.default
+  },
+  methods: {
+    deferredMountedTo(map) {
+      console.log('CustomLayer got a map')
+    }
+  }
+}
+```
+
+## Styling
+
+Mapbox adds a `mapboxgl-map` class to the main element. You can style that element so the element fits it's parent container.
+
+``` css
+.mapboxgl-map {
+  width: 100%;
+  height: 100%;
+}
+```
+
+
+## Development
+Please feel free to submit pull requests or fork the repository. You can test the current codebase  with `npm run test` and some examples  are  available in the storybook, which you can start by `npm run storybook`.
 
 
 ## License

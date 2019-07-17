@@ -28,6 +28,17 @@ const navigationTemplate = `
 </v-mapbox>
 `
 
+const styleTemplate = `
+<v-mapbox
+ :map-style="style"
+ access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ style="height: 300px;"
+>
+ <v-mapbox-navigation-control></v-mapbox-navigation-control>
+</v-mapbox>
+`
+
+
 storiesOf('Map', module)
   .add('map', () => {
     return {
@@ -45,9 +56,6 @@ storiesOf('Map', module)
       template: mapTemplate,
       mounted () {
         this.normal()
-        setTimeout(() => {this.small}, 1000)
-        setTimeout(() => {this.big}, 3000)
-        setTimeout(() => {this.normal}, 4000)
         button('small', () => {
           this.small()
         })
@@ -72,6 +80,34 @@ storiesOf('Map', module)
         },
         normal () {
           this.$el.style = 'height: 300px; width: 600px; border: 1px solid red;'
+        }
+      }
+    }
+  })
+  .addDecorator(withKnobs)
+  .add('style  change', () => {
+    return {
+      template: styleTemplate,
+      data () {
+        return {
+          style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm'
+        }
+      },
+      mounted () {
+        this.dark()
+        button('dark', () => {
+          this.dark()
+        })
+        button('light', () => {
+          this.light()
+        })
+      },
+      methods: {
+        dark () {
+          this.style = 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm'
+        },
+        light () {
+          this.style = 'mapbox://styles/global-data-viewer/cjtslsula05as1fppvrh7n4rv'
         }
       }
     }

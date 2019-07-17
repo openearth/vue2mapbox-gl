@@ -1,7 +1,8 @@
 import 'URL'
 import Vue from 'vue'
+import { mount } from '@vue/test-utils'
 import install from './src/main'
-import { propsDefaults } from './src/utils/propsBinder'
+import { propsDefaults, propsBinder } from './src/utils/propsBinder'
 import VMapbox from './src/components/VMapbox'
 
 
@@ -15,7 +16,15 @@ test('install', () => {
 	expect(VMapbox).toBeDefined()
 })
 
-test('utils', () => {
+test('default properties', () => {
+  // get the default properties
+  let defaults = propsDefaults(VMapbox.props)
+  let expected = {}
+  expect(defaults).toEqual(expected)
+})
+
+test('default properties override', () => {
+  // override some of the defalt properties
   let props = {
     interactive: {
       type: Boolean,
@@ -29,12 +38,17 @@ test('utils', () => {
   let defaults = propsDefaults(props)
   let expected = {interactive: true}
   expect(defaults).toEqual(expected)
-
 })
 
-test('utils of VMapbox', () => {
-  let defaults = propsDefaults(VMapbox.props)
-  let expected = {}
-  expect(defaults).toEqual(expected)
+test('bind properties', () => {
+  let defaults = {
+    minZoom: {
+      type: Number
+    }
+  }
 
+  let vueElement = {$watch: jest.fn()}
+  let mapboxMap = {setMinZoom: jest.fn()}
+  propsBinder(vueElement, mapboxMap, defaults)
+  expect(vueElement.$watch.mock.calls.length).toBe(1)
 })
