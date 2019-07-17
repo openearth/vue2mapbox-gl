@@ -1,11 +1,9 @@
 import mapboxgl from 'mapbox-gl'
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
 export default {
-  name: 'v-mapbox-geocoder',
+  name: 'v-mapbox-geolocate-control',
   // return rendered slots only
   render() {
-    // TODO: figure  out the  best way to render nothing
     return ''
   },
   data () {
@@ -25,23 +23,20 @@ export default {
       required: false
     }
   },
-  mounted () {
-  },
   methods: {
     deferredMountedTo(map) {
       let options = {
-        mapboxgl: map,
         accessToken: mapboxgl.accessToken
       }
+      // override with properties
       options = Object.assign(options, this.options)
-      let control = new MapboxGeocoder(options)
+      let control = new mapboxgl.GeolocateControl(options)
       if (this.position) {
         // if you pass an invalid position, this wil fail
         map.addControl(control, this.position)
       } else {
         map.addControl(control)
       }
-
     }
   }
 }

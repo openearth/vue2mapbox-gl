@@ -1,6 +1,6 @@
 {
   "name": "vue2mapbox-gl",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Vue >2 integration of mapbox. ",
   "license": "MIT",
   "repository": "openearth/vue2mapbox-gl",
@@ -48,7 +48,7 @@
     ]
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.4.0",
+    "@mapbox/mapbox-gl-geocoder": "^4.4.1",
     "resize-observer-polyfill": "^1.5.1"
   },
   "peerDependencies": {
@@ -61,6 +61,7 @@
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-knobs": "^5.1.9",
     "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-storysource": "^5.1.9",
     "@storybook/addons": "^5.1.9",
     "@storybook/vue": "^5.1.9",
     "@vue/test-utils": "^1.0.0-beta.29",

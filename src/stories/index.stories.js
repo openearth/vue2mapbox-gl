@@ -6,6 +6,8 @@ import { withKnobs, text, number, boolean, array, select, color, date, button } 
 import { linkTo } from '@storybook/addon-links';
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+// needed for  the  v-mapbox-geocoder
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Vue from 'vue'
 import Vue2MapboxGl from '../main.js'
 
@@ -25,8 +27,21 @@ const navigationTemplate = `
  style="height: 300px;"
 >
  <v-mapbox-navigation-control></v-mapbox-navigation-control>
+ <v-mapbox-navigation-control position="top-left" :options="{showCompass: false}"></v-mapbox-navigation-control>
 </v-mapbox>
 `
+
+const controlTemplate = `
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ style="height: 300px;"
+>
+ <v-mapbox-geolocate-control></v-mapbox-geolocate-control>
+ <v-mapbox-geocoder position="top-left"></v-mapbox-geocoder>
+</v-mapbox>
+`
+
 
 const styleTemplate = `
 <v-mapbox
@@ -39,6 +54,8 @@ const styleTemplate = `
 `
 
 
+
+
 storiesOf('Map', module)
   .add('map', () => {
     return {
@@ -48,6 +65,11 @@ storiesOf('Map', module)
   .add('map with navigation control', () => {
     return {
       template: navigationTemplate
+    }
+  })
+  .add('map with geolocate control and geocoder', () => {
+    return {
+      template: controlTemplate
     }
   })
   .addDecorator(withKnobs)
