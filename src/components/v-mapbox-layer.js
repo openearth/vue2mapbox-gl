@@ -1,5 +1,6 @@
 export default {
   name: 'v-mapbox-layer',
+  render () { },
   data () {
     return {
     };
@@ -9,14 +10,35 @@ export default {
       default: () => {
         return {};
       },
-      type: Object
+      type: [Object, String]
+    },
+    before: {
+      type: String,
+      required: false
     }
   },
   mounted () {
   },
   methods: {
     deferredMountedTo(map) {
-      map.addLayer(this.options);
+      console.log('adding layer', this)
+      let oldLayer = map.getLayer(this.options.id)
+      if (oldLayer) {
+        console.log('replacing', oldLayer)
+        map.removeLayer(this.options.id)
+        try {
+          map.removeSource(oldLayer.source)
+        } catch {
+          console.warn('could not remove source', oldLayer.source)
+        }
+      }
+      if (this.before) {
+        map.addLayer(this.options, this.before)
+      } else {
+        map.addLayer(this.options)
+      }
+      let layer = map.getLayer(this.options.id)
+      console.log('layer', layer)
     }
   }
 };

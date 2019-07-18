@@ -42,7 +42,6 @@ const controlTemplate = `
 </v-mapbox>
 `
 
-
 const styleTemplate = `
 <v-mapbox
  :map-style="style"
@@ -50,6 +49,87 @@ const styleTemplate = `
  style="height: 300px;"
 >
  <v-mapbox-navigation-control></v-mapbox-navigation-control>
+</v-mapbox>
+`
+
+const layerA = {
+  'id': 'a',
+  'type': 'fill',
+  'source': {
+    'type': 'geojson',
+    'data': {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': [
+          [
+            [-1, 49],
+            [-1, 61],
+            [11, 61],
+            [11, 49],
+            [-1, 49]
+          ]
+        ]
+      }
+    }
+  },
+  'layout': {},
+  'paint': {
+    'fill-color': '#0f0',
+    'fill-opacity': 1
+  }
+}
+const layerB = {
+  'id': 'b',
+  'type': 'fill',
+  'source': {
+    'type': 'geojson',
+    'data': {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': [
+          [
+            [0,  50],
+            [0, 60],
+            [10, 60],
+            [10, 50],
+            [0, 50]
+          ]
+        ]
+      }
+    }
+  },
+  'layout': {},
+  'paint': {
+    'fill-color': '#f00',
+    'fill-opacity': 1
+  }
+}
+
+const sortingTemplate = `
+<v-mapbox
+ :map-style="style"
+ access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ style="height: 300px;"
+ :center="[0, 0]"
+>
+ <!-- green (we want this on top) -->
+ <v-mapbox-layer :options="layerA"></v-mapbox-layer>
+ <!-- red -->
+ <v-mapbox-layer before="a" :options="layerB"></v-mapbox-layer>
+</v-mapbox>
+`
+
+const styleAndLayerTemplate = `
+<v-mapbox
+ access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ :map-style="style"
+ style="height: 300px;"
+ :center="[0, 0]"
+>
+ <!-- green (we want this on top) -->
+ <v-mapbox-layer :options="layerA"></v-mapbox-layer>
 </v-mapbox>
 `
 
@@ -113,6 +193,47 @@ storiesOf('Map', module)
       data () {
         return {
           style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm'
+        }
+      },
+      mounted () {
+        this.dark()
+        button('dark', () => {
+          this.dark()
+        })
+        button('light', () => {
+          this.light()
+        })
+      },
+      methods: {
+        dark () {
+          this.style = 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm'
+        },
+        light () {
+          this.style = 'mapbox://styles/global-data-viewer/cjtslsula05as1fppvrh7n4rv'
+        }
+      }
+    }
+  })
+  .add('layer order', () => {
+    return {
+      template: sortingTemplate,
+      data () {
+        return {
+          style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
+          layerA,
+          layerB
+        }
+      },
+    }
+  })
+  .addDecorator(withKnobs)
+  .add('style change with layers', () => {
+    return {
+      template: styleAndLayerTemplate,
+      data () {
+        return {
+          style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
+          layerA
         }
       },
       mounted () {
