@@ -12,6 +12,7 @@ export default {
       },
       type: [Object, String]
     },
+    // allows to place a layer before another
     before: {
       type: String,
       required: false
@@ -21,10 +22,9 @@ export default {
   },
   methods: {
     deferredMountedTo(map) {
-      console.log('adding layer', this)
+      // if we were already mounted, we need  to remove the old layr
       let oldLayer = map.getLayer(this.options.id)
       if (oldLayer) {
-        console.log('replacing', oldLayer)
         map.removeLayer(this.options.id)
         try {
           map.removeSource(oldLayer.source)
@@ -32,13 +32,13 @@ export default {
           console.warn('could not remove source', oldLayer.source)
         }
       }
+      // if we  want to add a layer before another layer, use the before option
       if (this.before) {
         map.addLayer(this.options, this.before)
       } else {
         map.addLayer(this.options)
       }
       let layer = map.getLayer(this.options.id)
-      console.log('layer', layer)
     }
   }
 };
