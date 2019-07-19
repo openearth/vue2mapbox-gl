@@ -2,6 +2,7 @@ import mapboxgl from 'mapbox-gl';
 
 export default {
   name: 'v-mapbox-navigation-control',
+  render () { },
   data () {
     return {
     };
