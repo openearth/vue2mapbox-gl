@@ -1,5 +1,6 @@
 export default {
   name: 'v-mapbox-source',
+  render () {},
   data () {
     return {
     };

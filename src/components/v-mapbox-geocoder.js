@@ -4,10 +4,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 export default {
   name: 'v-mapbox-geocoder',
   // return rendered slots only
-  render() {
-    // TODO: figure  out the  best way to render nothing
-    return ''
-  },
+  render() { },
   data () {
     return {
     }

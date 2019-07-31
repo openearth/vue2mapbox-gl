@@ -3,9 +3,7 @@ import mapboxgl from 'mapbox-gl'
 export default {
   name: 'v-mapbox-geolocate-control',
   // return rendered slots only
-  render() {
-    return ''
-  },
+  render() { },
   data () {
     return {
       control: null

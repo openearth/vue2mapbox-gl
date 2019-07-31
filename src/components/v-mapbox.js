@@ -6,7 +6,8 @@ const mapEvents = [
   'load',
   'zoomstart',
   'zoomend',
-  'zoom'
+  'zoom',
+  'styledata'
 ]
 
 // props that we want to proxy
@@ -126,8 +127,7 @@ export default {
   name: 'v-mapbox',
   data () {
     return {
-      map: null,
-      layers: []
+      map: null
     }
   },
   props: props,
@@ -162,16 +162,15 @@ export default {
     // ones the map  is loaded, add al layers that were present during mount time
     // we can consider watching our children.
     this.$on('mb-load', () => {
-      this.$children.forEach(
-        (child) => {
-          child.deferredMountedTo(this.map)
-          // if we have a layer. add it to  layers
-          if (child.$options.name === 'v-mapbox-layer') {
-            this.layers.push(child.options)
-          }
-        }
-      )
+      this.addLayers()
     })
+    this.$on('style:update', () => {
+      // if the style was changed,  wait for the styledata to be loaded and re-add all the layers
+      this.$once('mb-styledata', () => {
+        this.addLayers()
+      })
+    })
+
     // Mapbox has some resize issues
     // Create an observer  on this object
     // Call resize on the map when we change szie
@@ -180,6 +179,19 @@ export default {
     this.resizeObserver = observer
   },
   methods: {
+    addLayers () {
+      let [...children] = this.$children
+      // TODO: consider sorting or using slots if we run to render order problems
+      // children.sort(child => {
+      //   return child.key
+      // })
+      this.$children.forEach(
+        (child) => {
+          child.deferredMountedTo(this.map)
+        }
+      )
+
+    },
     resize() {
       if (this.map) {
         this.map.resize()

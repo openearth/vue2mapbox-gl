@@ -13,6 +13,7 @@ function propsBinder(vueElement, mapboxElement, props) {
     }
     vueElement.$watch(keyToWatch, (newVal, oldVal) => {
       mapboxElement[setMethodName](newVal)
+      vueElement.$emit(key + ':update', newVal)
     })
   })
 }
