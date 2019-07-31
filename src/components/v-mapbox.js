@@ -131,6 +131,12 @@ export default {
     }
   },
   props: props,
+  provide () {
+    // allows to use inject:  ['getMap']  in child components
+    return {
+      getMap: () => this.map
+    }
+  },
   mounted () {
     //Initialze Map
     let options = {}
