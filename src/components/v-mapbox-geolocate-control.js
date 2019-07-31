@@ -6,8 +6,10 @@ export default {
   render() { },
   data () {
     return {
+      control: null
     }
   },
+  inject:  ['getMap'],
   props: {
     options: {
       default: () => {
@@ -21,8 +23,24 @@ export default {
       required: false
     }
   },
+  beforeDestroy () {
+    let map = this.getMap()
+    if (this.control) {
+      map.removeControl(this.control)
+    }
+  },
+  mounted () {
+    let map = this.getMap()
+    // if we are already loaded
+    if (map && map.loaded()) {
+      this.addToMap(map)
+    }
+  },
   methods: {
     deferredMountedTo(map) {
+      this.addToMap(map)
+    },
+    addToMap(map) {
       let options = {
         accessToken: mapboxgl.accessToken
       }
@@ -35,6 +53,7 @@ export default {
       } else {
         map.addControl(control)
       }
+      this.control = control
     }
   }
 }

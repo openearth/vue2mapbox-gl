@@ -52,6 +52,16 @@ const styleTemplate = `
 </v-mapbox>
 `
 
+const injectTemplate = `
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ style="height: 300px;"
+>
+ <v-mapbox-geolocate-control v-if="geoLocateControl"></v-mapbox-geolocate-control>
+</v-mapbox>
+`
+
 const layerA = {
   'id': 'a',
   'type': 'fill',
@@ -135,7 +145,6 @@ const styleAndLayerTemplate = `
 
 
 
-
 storiesOf('Map', module)
   .add('map', () => {
     return {
@@ -211,6 +220,22 @@ storiesOf('Map', module)
         light () {
           this.style = 'mapbox://styles/global-data-viewer/cjtslsula05as1fppvrh7n4rv'
         }
+      }
+    }
+  })
+  .addDecorator(withKnobs)
+  .add('add/remove control', () => {
+    return {
+      template: injectTemplate,
+      data () {
+        return {
+          geoLocateControl: true
+        }
+      },
+      mounted () {
+        button('toggle control', () => {
+          this.geoLocateControl = !this.geoLocateControl
+        })
       }
     }
   })
