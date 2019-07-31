@@ -93,6 +93,8 @@ export default {
 }
 ```
 
+You can also use an `inject: ['getMap']`, to access the map in your component.
+
 ## Styling
 
 Mapbox adds a `mapboxgl-map` class to the main element. You can style that element so the element fits it's parent container.
