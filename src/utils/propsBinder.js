@@ -34,7 +34,7 @@ function propsDefaults (props, options) {
 
   })
   // override with options
-  let optionEntries = Object.entries(options)
+  let optionEntries = Object.entries(options ||  {})
   optionEntries.forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
       result[key] =  value
