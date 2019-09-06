@@ -19,6 +19,7 @@ function propsBinder(vueElement, mapboxElement, props) {
 }
 
 function propsDefaults (props, options) {
+  // pass along  the props  and fill in the options
   let entries = Object.entries(props)
   let result = {}
   entries.forEach(([key, value]) => {
@@ -26,8 +27,17 @@ function propsDefaults (props, options) {
     if (value === undefined || value === null) {
       return
     }
+    // if value has a  props default, set that
     if (value.default !== null && value.default !== undefined) {
       result[key] = value.default
+    }
+
+  })
+  // override with options (which can be null or undefined)
+  let optionEntries = Object.entries(options ||  {})
+  optionEntries.forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      result[key] =  value
     }
   })
   return result
