@@ -33,7 +33,7 @@ function propsDefaults (props, options) {
     }
 
   })
-  // override with options
+  // override with options (which can be null or undefined)
   let optionEntries = Object.entries(options ||  {})
   optionEntries.forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
