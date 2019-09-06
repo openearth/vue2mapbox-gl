@@ -20,6 +20,17 @@ const mapTemplate = `
  style="height: 300px;"
 />
 `
+
+const zoomTemplate = `
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ :center="[4, 52]"
+ :zoom="7"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ style="height: 300px;"
+/>
+`
+
 const navigationTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
@@ -149,6 +160,11 @@ storiesOf('Map', module)
   .add('map', () => {
     return {
       template: mapTemplate
+    }
+  })
+  .add('map with center and zoom', () => {
+    return {
+      template: zoomTemplate
     }
   })
   .add('map with navigation control', () => {
