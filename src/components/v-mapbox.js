@@ -139,15 +139,14 @@ export default {
   },
   mounted () {
     //Initialze Map
-    let options = {}
     mapboxgl.accessToken = this.accessToken
 
+    let options = propsDefaults(props, this.$props)
     // renamed properties
     if (this.mapStyle) {
       options.style = this.mapStyle
     }
-    let defaults = propsDefaults(this.$props)
-    Object.assign(options, defaults)
+
     options.container = this.$el
 
     this.map = new mapboxgl.Map(options)
