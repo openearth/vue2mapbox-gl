@@ -53,6 +53,16 @@ const controlTemplate = `
 </v-mapbox>
 `
 
+const controlScaleTemplate = `
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ style="height: 90vh;"
+>
+ <v-mapbox-scale-control position="bottom-right"></v-mapbox-scale-control>
+</v-mapbox>
+`
+
 const styleTemplate = `
 <v-mapbox
  :map-style="style"
@@ -175,6 +185,11 @@ storiesOf('Map', module)
   .add('map with geolocate control and geocoder', () => {
     return {
       template: controlTemplate
+    }
+  })
+  .add('map with scale control', () => {
+    return {
+      template: controlScaleTemplate
     }
   })
   .addDecorator(withKnobs)
