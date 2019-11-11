@@ -24,12 +24,14 @@ const mapTemplate = `
 const zoomTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- :center="[4, 52]"
- :zoom="7"
+ :center="center"
+ :zoom="zoom"
+ ref="map"
  access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
  style="height: 300px;"
 />
 `
+
 
 const navigationTemplate = `
 <v-mapbox
@@ -104,7 +106,9 @@ const layerA = {
       }
     }
   },
-  'layout': {},
+  'layout': {
+    'visibility': 'visible'
+  },
   'paint': {
     'fill-color': '#0f0',
     'fill-opacity': 1
@@ -174,7 +178,49 @@ storiesOf('Map', module)
   })
   .add('map with center and zoom', () => {
     return {
-      template: zoomTemplate
+      data () {
+        return {
+          center: [4, 52],
+          zoom: 10
+        }
+      },
+      template: zoomTemplate,
+      mounted () {
+        button('random  center', () => {
+          this.center = [Math.random() * 50, Math.random() * 50]
+        })
+      }
+    }
+  })
+  .add('map with center and layers', () => {
+    return {
+      data () {
+        return {
+          center: [4, 52],
+          zoom: 5
+        }
+      },
+      template: zoomTemplate,
+      mounted () {
+        let map = this.$refs.map.map
+        map.on('load', () => {
+          map.addLayer(layerA)
+        })
+        button('random opacity', () => {
+          let opacity = Math.random()
+          map.setPaintProperty('a', 'fill-opacity', opacity)
+        })
+        button('toggle visibility', () => {
+          let opacity = Math.random()
+          let visibility = map.getLayoutProperty('a', 'visibility')
+          if (visibility === 'visible')  {
+            visibility = 'none'
+          } else {
+            visibility = 'visible'
+          }
+          map.setLayoutProperty('a', 'visibility', visibility)
+        })
+      }
     }
   })
   .add('map with navigation control', () => {

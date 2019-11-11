@@ -141,11 +141,8 @@ export default {
     //Initialze Map
     mapboxgl.accessToken = this.accessToken
 
+
     let options = propsDefaults(props, this.$props)
-    // renamed properties
-    if (this.mapStyle) {
-      options.style = this.mapStyle
-    }
 
     options.container = this.$el
 

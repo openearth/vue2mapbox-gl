@@ -5,7 +5,12 @@ function capitalizeFirstLetter(string) {
 function propsBinder(vueElement, mapboxElement, props) {
   let keys = Object.keys(props)
   keys.forEach((key, i) => {
+    // rename
+    if (key === 'mapStyle') {
+      key = 'style'
+    }
     let setMethodName = 'set' + capitalizeFirstLetter(key)
+
     let keyToWatch = key
     if (key === 'style') {
       // for style watch the mapStyle property
@@ -40,6 +45,13 @@ function propsDefaults (props, options) {
       result[key] =  value
     }
   })
+
+  // rename mapStyle (Vue element property)  to style (mapbox property)
+  let style = result.mapStyle
+  if (style) {
+    delete result.mapStyle
+    result.style = style
+  }
   return result
 }
 
