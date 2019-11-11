@@ -134,7 +134,7 @@ export default {
   provide () {
     // allows to use inject:  ['getMap']  in child components
     return {
-      getMap: () => this.map
+      getMap: () => this.$options.map
     }
   },
   mounted () {
@@ -149,14 +149,14 @@ export default {
 
     options.container = this.$el
 
-    this.map = new mapboxgl.Map(options)
+    this.$options.map = new mapboxgl.Map(options)
 
     // listen to property changes and set the corresponding data in mapbox
-    propsBinder(this, this.map, options)
+    propsBinder(this, this.$options.map, options)
 
     // emit a map created event
-    this.$emit('mb-created', this.map)
-    bindMapEvents(this, this.map, mapEvents)
+    this.$emit('mb-created', this.$options.map)
+    bindMapEvents(this, this.$options.map, mapEvents)
 
     // ones the map  is loaded, add al layers that were present during mount time
     // we can consider watching our children.
@@ -171,7 +171,7 @@ export default {
     })
 
     // Mapbox has some resize issues
-    // Create an observer  on this object
+    // Create an observer on this object
     // Call resize on the map when we change szie
     let observer = new ResizeObserver(this.resize)
     observer.observe(this.$el)
@@ -186,14 +186,14 @@ export default {
       // })
       this.$children.forEach(
         (child) => {
-          child.deferredMountedTo(this.map)
+          child.deferredMountedTo(this.$options.map)
         }
       )
 
     },
     resize() {
-      if (this.map) {
-        this.map.resize()
+      if (this.$options.map) {
+        this.$options.map.resize()
       }
     }
   }
