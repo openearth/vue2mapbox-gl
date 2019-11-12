@@ -10,6 +10,11 @@ export default {
         return {};
       },
       type: [Object, String]
+    },
+    // allows to place a layer before another
+    before: {
+      type: String,
+      required: false
     }
   },
   data() {
@@ -64,7 +69,12 @@ export default {
     },
     addLayer() {
       const map = this.getMap();
-      map.addLayer(this.options);
+
+      if (this.before) {
+        map.addLayer(this.options, this.before)
+      } else {
+        map.addLayer(this.options)
+      }
     }
   }
 };
