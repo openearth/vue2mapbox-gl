@@ -1,9 +1,8 @@
 export default {
   name: 'v-mapbox-layer',
-  render () { },
-  data () {
-    return {
-    };
+  inject: ['getMap'],
+  render() {
+    return null;
   },
   props: {
     options: {
@@ -11,34 +10,61 @@ export default {
         return {};
       },
       type: [Object, String]
-    },
-    // allows to place a layer before another
-    before: {
-      type: String,
-      required: false
     }
   },
-  mounted () {
+  data() {
+    return {
+      // used to determine if mounted or deferredMountedTo should be used
+      isInitialized: false
+    };
+  },
+  watch: {
+    options: {
+      deep: true,
+      handler() {
+        this.removeLayer();
+        this.addLayer();
+      }
+    }
+  },
+  mounted() {
+    // only execute when map is available and layer is not already initialized
+    if (this.getMap()) {
+      this.removeLayer();
+      this.addLayer();
+      this.isInitialized = true;
+    }
+  },
+  destroyed() {
+    this.removeLayer();
   },
   methods: {
-    deferredMountedTo(map) {
-      // if we were already mounted, we need  to remove the old layr
-      let oldLayer = map.getLayer(this.options.id)
-      if (oldLayer) {
-        map.removeLayer(this.options.id)
-        try {
-          map.removeSource(oldLayer.source)
-        } catch {
-          console.warn('could not remove source', oldLayer.source)
+    deferredMountedTo() {
+      // only execute when layer is not already initialized
+      if (!this.isInitialized) {
+        this.removeLayer();
+        this.addLayer();
+        this.isInitialized = true;
+      }
+    },
+    removeLayer() {
+      const map = this.getMap();
+      if (map) {
+        const layer = map.getLayer(this.options.id);
+
+        if (layer) {
+          map.removeLayer(this.options.id);
+          try {
+            map.removeSource(layer.source);
+          } catch {
+            console.warn('could not remove source', layer.source);
+          }
         }
       }
-      // if we  want to add a layer before another layer, use the before option
-      if (this.before) {
-        map.addLayer(this.options, this.before)
-      } else {
-        map.addLayer(this.options)
-      }
-      let layer = map.getLayer(this.options.id)
+    },
+    addLayer() {
+      const map = this.getMap();
+      map.addLayer(this.options);
     }
   }
 };
