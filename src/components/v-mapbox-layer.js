@@ -28,20 +28,17 @@ export default {
     options: {
       deep: true,
       handler() {
-        this.removeLayer();
-        this.addLayer();
+        this.rerender();
       }
     },
     before() {
-      this.removeLayer();
-      this.addLayer();
+      this.rerender();
     }
   },
   mounted() {
     // only execute when map is available and layer is not already initialized
     if (this.getMap()) {
-      this.removeLayer();
-      this.addLayer();
+      this.rerender();
       this.isInitialized = true;
     }
   },
@@ -52,8 +49,7 @@ export default {
     deferredMountedTo() {
       // only execute when layer is not already initialized
       if (!this.isInitialized) {
-        this.removeLayer();
-        this.addLayer();
+        this.rerender();
         this.isInitialized = true;
       }
     },
@@ -80,6 +76,10 @@ export default {
       } else {
         map.addLayer(this.options)
       }
+    },
+    rerender() {
+      this.removeLayer();
+      this.addLayer();
     }
   }
 };
