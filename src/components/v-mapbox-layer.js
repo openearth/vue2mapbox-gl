@@ -23,6 +23,7 @@ export default {
       isInitialized: false
     };
   },
+  // watch props and rerender if they change
   watch: {
     options: {
       deep: true,
@@ -30,6 +31,10 @@ export default {
         this.removeLayer();
         this.addLayer();
       }
+    },
+    before() {
+      this.removeLayer();
+      this.addLayer();
     }
   },
   mounted() {
