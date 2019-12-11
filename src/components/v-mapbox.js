@@ -61,10 +61,10 @@ const props = {
   //   type: Boolean,
   //   default: false
   // },
-  // preserveDrawingBuffer: {
-  //   type: Boolean,
-  //   default: false
-  // },
+  preserveDrawingBuffer: {
+    type: Boolean,
+    default: false
+  },
   // refreshExpiredTiles: {
   //   type: Boolean,
   //   default: true
