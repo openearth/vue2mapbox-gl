@@ -127,14 +127,13 @@ export default {
   name: 'v-mapbox',
   data () {
     return {
-      map: null
     }
   },
   props: props,
   provide () {
     // allows to use inject:  ['getMap']  in child components
     return {
-      getMap: () => this.$options.map
+      getMap: () => this.map
     }
   },
   mounted () {
@@ -146,14 +145,17 @@ export default {
 
     options.container = this.$el
 
-    this.$options.map = new mapboxgl.Map(options)
+    // Note that we don't add this.map to data
+    // It does not have to be observed. See:
+    // https://github.com/vuejs/vue/issues/2637#issuecomment-207076744
+    this.map = new mapboxgl.Map(options)
 
     // listen to property changes and set the corresponding data in mapbox
-    propsBinder(this, this.$options.map, options)
+    propsBinder(this, this.map, options)
 
     // emit a map created event
-    this.$emit('mb-created', this.$options.map)
-    bindMapEvents(this, this.$options.map, mapEvents)
+    this.$emit('mb-created', this.map)
+    bindMapEvents(this, this.map, mapEvents)
 
     // ones the map  is loaded, add al layers that were present during mount time
     // we can consider watching our children.
@@ -183,14 +185,14 @@ export default {
       // })
       this.$children.forEach(
         (child) => {
-          child.deferredMountedTo(this.$options.map)
+          child.deferredMountedTo(this.map)
         }
       )
 
     },
     resize() {
-      if (this.$options.map) {
-        this.$options.map.resize()
+      if (this.map) {
+        this.map.resize()
       }
     }
   }
