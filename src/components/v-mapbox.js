@@ -39,10 +39,10 @@ const props = {
   //   type: Boolean,
   //   default: false
   // },
-  // interactive: {
-  //   type: Boolean,
-  //   default: true
-  // },
+  interactive: {
+    type: Boolean,
+    default: true
+  },
   // bearingSnap: {
   //   type: Number
   // },
@@ -61,34 +61,34 @@ const props = {
   //   type: Boolean,
   //   default: false
   // },
-  // preserveDrawingBuffer: {
-  //   type: Boolean,
-  //   default: false
-  // },
-  // refreshExpiredTiles: {
-  //   type: Boolean,
-  //   default: true
-  // },
-  // maxBounds: {
-  //   // latLngLike
-  //   type: [Object, Array]
-  // },
-  // scrollZoom: {
-  //   type: [Boolean, Object],
-  //   default: true
-  // },
-  // boxZoom: {
-  //   type: Boolean,
-  //   default: true
-  // },
-  // dragRotate: {
-  //   type: Boolean,
-  //   default: true
-  // },
-  // dragPan: {
-  //   type: Boolean,
-  //   default: true
-  // },
+  preserveDrawingBuffer: {
+    type: Boolean,
+    default: false
+  },
+  refreshExpiredTiles: {
+    type: Boolean,
+    default: true
+  },
+  maxBounds: {
+    // latLngLike
+    type: [Object, Array]
+  },
+  scrollZoom: {
+    type: [Boolean, Object],
+    default: true
+  },
+  boxZoom: {
+    type: Boolean,
+    default: true
+  },
+  dragRotate: {
+    type: Boolean,
+    default: true
+  },
+  dragPan: {
+    type: Boolean,
+    default: true
+  },
   // keyboard: {
   //   type: Boolean,
   //   default: true
