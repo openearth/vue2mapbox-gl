@@ -16,6 +16,7 @@ const mapEvents = [
 // The default true's are copied from https://www.mapbox.com/mapbox-gl-js/api/#map
 // these can be disabled after object construction
 // we can watch all these properties but that's disabled
+
 const props = {
   accessToken: {
     type: String,
@@ -39,9 +40,10 @@ const props = {
   //   type: Boolean,
   //   default: false
   // },
-  interactive: {
-    type: Boolean
-  },
+  // interactive: {
+  //   type: Boolean,
+  //   default: true
+  // },
   // bearingSnap: {
   //   type: Number
   // },
@@ -61,27 +63,33 @@ const props = {
   //   default: false
   // },
   preserveDrawingBuffer: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
-  refreshExpiredTiles: {
-    type: Boolean
-  },
-  maxBounds: {
-    // latLngLike
-    type: [Object, Array]
-  },
-  scrollZoom: {
-    type: [Boolean, Object]
-  },
-  boxZoom: {
-    type: Boolean
-  },
-  dragRotate: {
-    type: Boolean
-  },
-  dragPan: {
-    type: Boolean
-  },
+  // refreshExpiredTiles: {
+  //   type: Boolean,
+  //   default: true
+  // },
+  // maxBounds: {
+  //   // latLngLike
+  //   type: [Object, Array]
+  // },
+  // scrollZoom: {
+  //   type: [Boolean, Object],
+  //   default: true
+  // },
+  // boxZoom: {
+  //   type: Boolean,
+  //   default: true
+  // },
+  // dragRotate: {
+  //   type: Boolean,
+  //   default: true
+  // },
+  // dragPan: {
+  //   type: Boolean,
+  //   default: true
+  // },
   // keyboard: {
   //   type: Boolean,
   //   default: true
