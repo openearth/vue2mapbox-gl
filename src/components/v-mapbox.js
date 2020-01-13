@@ -40,8 +40,7 @@ const props = {
   //   default: false
   // },
   interactive: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   // bearingSnap: {
   //   type: Number
@@ -62,32 +61,26 @@ const props = {
   //   default: false
   // },
   preserveDrawingBuffer: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
   refreshExpiredTiles: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   maxBounds: {
     // latLngLike
     type: [Object, Array]
   },
   scrollZoom: {
-    type: [Boolean, Object],
-    default: true
+    type: [Boolean, Object]
   },
   boxZoom: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   dragRotate: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   dragPan: {
-    type: Boolean,
-    default: true
+    type: Boolean
   },
   // keyboard: {
   //   type: Boolean,
