@@ -75,6 +75,20 @@ const styleTemplate = `
 </v-mapbox>
 `
 
+const canvasTemplate = `
+<div>
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ :preserve-drawing-buffer="true"
+ ref="map"
+ style="height: 300px;"
+/>
+<h2>A rendered map should appear below</h2>
+</div>
+`
+
+
 const injectTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
@@ -328,6 +342,27 @@ storiesOf('Map', module)
       },
     }
   })
+  .add('preserve drawing buffer order', () => {
+    return {
+      template: canvasTemplate,
+      mounted () {
+        let map = this.$refs.map.map
+        map.on('load', () => {
+          // render the image (only works on preserve drawing buffer)
+          let el = this.$el.querySelector('canvas')
+          let src = el.toDataURL()
+          let img = document.createElement('img')
+          img.classList.add('render')
+          img.setAttribute('src', src)
+          img.setAttribute('width', 300)
+          img.setAttribute('height', 200)
+          this.$el.appendChild(img)
+        })
+
+      }
+    }
+  })
+
   .addDecorator(withKnobs)
   .add('style change with layers', () => {
     return {
