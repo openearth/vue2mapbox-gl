@@ -19,7 +19,9 @@ test('install', () => {
 test('default properties', () => {
   // get the default properties
   let defaults = propsDefaults(VMapbox.props)
-  let expected = {}
+  let expected = {
+   "preserveDrawingBuffer": false,
+  }
   expect(defaults).toEqual(expected)
 })
 
