@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -64,7 +65,10 @@ module.exports = (env, argv) => {
     plugins: [
       // make sure to include the plugin!
       new VueLoaderPlugin(),
-      new BundleAnalyzerPlugin({analyzerMode: 'static'})
+      new BundleAnalyzerPlugin({analyzerMode: 'static'}),
+      new webpack.SourceMapDevToolPlugin({
+        filename: "[file].map"
+      })
     ]
   }
 }
