@@ -38,7 +38,7 @@ export const props = {
     type: [HTMLElement, String]
   },
   minZoom: {
-    type: String
+    type: Number
   },
   maxZoom: {
     type: Number
