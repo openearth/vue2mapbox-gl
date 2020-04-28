@@ -47,6 +47,11 @@ export const props = {
   mapStyle: {
     type: [Object, String]
   },
+
+  antialias: {
+    type: Boolean,
+    default: true
+  },
   // hash: {
   //   type: Boolean,
   //   default: false
@@ -116,7 +121,7 @@ export const props = {
   // trackResize: {
   //   type: Boolean,
   //   default: true
-  // },
+    // },
   center: {
     type: [Object, Array]
   },
