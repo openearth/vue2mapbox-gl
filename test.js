@@ -20,6 +20,7 @@ test('default properties', () => {
   // get the default properties
   let defaults = propsDefaults(VMapbox.props)
   let expected = {
+   "antialias": true,
    "preserveDrawingBuffer": false,
   }
   expect(defaults).toEqual(expected)
