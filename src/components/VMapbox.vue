@@ -144,6 +144,7 @@ export default {
   name: 'v-mapbox',
   data () {
     return {
+	    map: null
     }
   },
   props,
