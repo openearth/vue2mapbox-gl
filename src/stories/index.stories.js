@@ -395,12 +395,7 @@ storiesOf('Map', module)
         style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
         center: [0, 0],
         layers: [ layerA ],
-      }),
-      watch: {
-        opacity(newVal) {
-          console.log(newVal)
-        }
-      }
+      })
     }
   })
 
