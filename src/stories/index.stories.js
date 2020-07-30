@@ -178,6 +178,17 @@ const dynamicLayersTemplate = `
 </v-mapbox>
 `
 
+const clickableLayersTemplate = `
+<v-mapbox
+ :map-style="style"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ style="height: 300px;"
+ :center="center"
+>
+  <v-mapbox-layer v-for="layer in layers" :layer="layer" :key="layer.id" :clickable="true" @click="onLayerClick" />
+</v-mapbox>
+`
+
 const styleAndLayerTemplate = `
 <v-mapbox
  access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
@@ -373,6 +384,22 @@ storiesOf('Map', module)
           const hasLayerB = this.layers.some(({ id }) => id === 'b');
           if(hasLayerB) this.layers = this.layers.filter(({ id }) => id !== 'b');
           else this.layers = [ ...this.layers, layerB];
+        }
+      }
+    }
+  })
+
+  .add('clickable layers', () => {
+    return {
+      template: clickableLayersTemplate,
+      data: () => ({
+        style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
+        center: [0, 0],
+        layers: [ layerA ],
+      }),
+      methods: {
+        onLayerClick() {
+          alert('You clicked the layer');
         }
       }
     }
