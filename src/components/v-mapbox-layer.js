@@ -30,6 +30,11 @@ export default {
       }
     },
 
+    renderLayer() {
+      this.removeLayer();
+      this.addLayer();
+    },
+
     addLayer() {
       const map = this.getMap();
       map.addLayer(this.layer, this.before);
@@ -46,14 +51,9 @@ export default {
         }
       }
     },
-
-    renderLayer() {
-      this.removeLayer();
-      this.addLayer();
-    }
   },
 
-  mounted () {
+  mounted() {
     const map = this.getMap();
     // We can immediately initialize if we have the map ready
     if(map && map.isStyleLoaded()) {
