@@ -1,3 +1,5 @@
+import { isNil } from '../utils/helpers';
+
 export default {
   name: 'v-mapbox-layer',
 
@@ -15,6 +17,12 @@ export default {
     before: {
       type: String,
       default: null
+    },
+
+    opacity: {
+      type: Number,
+      required: false,
+      validator: val => val >= 0 && val <= 1
     }
   },
 
@@ -38,6 +46,10 @@ export default {
     addLayer() {
       const map = this.getMap();
       map.addLayer(this.layer, this.before);
+
+      if(!isNil(this.opacity)) {
+        this.setOpacity();
+      }
     },
 
     removeLayer() {
@@ -50,6 +62,12 @@ export default {
           map.removeSource(layer.source);
         }
       }
+    },
+
+    setOpacity() {
+      const map = this.getMap();
+      const { id, type } = this.layer;
+      map.setPaintProperty(id, `${ type }-opacity`, this.opacity);
     },
   },
 
@@ -72,6 +90,9 @@ export default {
       handler() {
         this.renderLayer();
       }
+    },
+    opacity() {
+      this.setOpacity();
     }
   }
 };
