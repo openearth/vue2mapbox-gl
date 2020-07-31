@@ -142,11 +142,6 @@ export const props = {
 
 export default {
   name: 'v-mapbox',
-  data () {
-    return {
-	    map: null
-    }
-  },
   props,
   provide () {
     // allows to use inject:  ['getMap']  in child components
