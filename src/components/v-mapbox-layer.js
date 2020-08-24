@@ -6,7 +6,7 @@ export default {
   render: () => null,
 
   props: {
-    layer: {
+    options: {
       type: Object,
       default: () => ({})
     },
@@ -37,13 +37,13 @@ export default {
 
     addLayer() {
       const map = this.getMap();
-      map.addLayer(this.layer, this.before);
+      map.addLayer(this.options, this.before);
     },
 
     removeLayer() {
       const map = this.getMap();
       if(map) {
-        const layerId = this.layer.id;
+        const layerId = this.options.id;
         const layer = map.getLayer(layerId);
         if(layer) {
           map.removeLayer(layerId);
@@ -67,7 +67,7 @@ export default {
   },
 
   watch: {
-    layer: {
+    options: {
       deep: true,
       handler() {
         this.renderLayer();

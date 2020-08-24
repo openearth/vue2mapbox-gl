@@ -161,9 +161,9 @@ const sortingTemplate = `
  :center="[0, 0]"
 >
  <!-- green (we want this on top) -->
- <v-mapbox-layer :layer="layerA"></v-mapbox-layer>
+ <v-mapbox-layer :options="layerA"></v-mapbox-layer>
  <!-- red -->
- <v-mapbox-layer :layer="layerB"></v-mapbox-layer>
+ <v-mapbox-layer :options="layerB"></v-mapbox-layer>
 </v-mapbox>
 `
 
@@ -173,7 +173,7 @@ const dynamicLayersTemplate = `
  access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
  style="height: 300px;"
 >
-  <v-mapbox-layer v-for="layer in layers" :layer="layer" :key="layer.id" />
+  <v-mapbox-layer v-for="layer in layers" :options="layer" :key="layer.id" />
 </v-mapbox>
 `
 
@@ -184,7 +184,7 @@ const styleAndLayerTemplate = `
  style="height: 300px;"
  :center="[0, 0]"
 >
-  <v-mapbox-layer :layer="layerA"></v-mapbox-layer>
+  <v-mapbox-layer :options="layerA"></v-mapbox-layer>
 </v-mapbox>
 `
 
