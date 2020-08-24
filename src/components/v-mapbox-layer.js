@@ -46,8 +46,11 @@ export default {
         const layerId = this.options.id;
         const layer = map.getLayer(layerId);
         if(layer) {
+          const layerSource = layer.source;
           map.removeLayer(layerId);
-          map.removeSource(layer.source);
+          if(layerSource && !map.getStyle().layers.some(({ source }) => source === layerSource)) {
+            map.removeSource(layerSource);
+          }
         }
       }
     },
