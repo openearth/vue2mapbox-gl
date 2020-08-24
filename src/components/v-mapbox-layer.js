@@ -14,7 +14,7 @@ export default {
     // Allows to place a layer before another
     before: {
       type: String,
-      default: null
+      default: undefined
     }
   },
 
