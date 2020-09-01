@@ -1,19 +1,21 @@
 <template>
+  <!--
+    The main div will receive class `mapboxgl-map`; you can use that class for styling.
+    Note: If you put a id on the main element it won't work with multiple maps on one page (for example with compare plugin).
+  -->
   <div>
-    <!-- the main div will get class mapboxgl-map, you can use that class or an id for styling -->
-    <!-- if you put a id in the main element it won't work with 2 maps on one page (for example with compare plugin) -->
     <slot name="layers"></slot>
     <slot name="sources"></slot>
     <slot></slot>
   </div>
 </template>
-<!-- script is lowercase -->
+
 <script>
 import mapboxgl from 'mapbox-gl'
-import {propsBinder, propsDefaults} from '../utils/propsBinder.js'
-import {bindMapEvents, bindLayerEvents} from '../utils/eventsBinder.js'
+import { propsBinder, propsDefaults } from '../utils/propsBinder.js'
+import { bindMapEvents } from '../utils/eventsBinder.js'
 
-const mapEvents = [
+const MAP_EVENTS = [
   'load',
   'zoomstart',
   'zoomend',
@@ -21,12 +23,12 @@ const mapEvents = [
   'styledata'
 ]
 
-// props that we want to proxy
-// some are disabled pending testing
-// note that boolean props are always defined (unspecified = false).
-// The default true's are copied from https://www.mapbox.com/mapbox-gl-js/api/#map
-// these can be disabled after object construction
-// we can watch all these properties but that's disabled
+// Props that we want to proxy.
+// Some are disabled pending testing.
+// Note that boolean props are always defined (unspecified = false).
+// The default trues are copied from https://www.mapbox.com/mapbox-gl-js/api/#map
+// These can be disabled after object construction.
+// We can watch all these properties but that's disabled.
 
 export const props = {
   accessToken: {
@@ -34,6 +36,7 @@ export const props = {
     required: true
   },
   // always this component
+  // @QUESTION :: This gets overridden by default, do we really need this?
   container: {
     type: [HTMLElement, String]
   },
@@ -43,11 +46,10 @@ export const props = {
   maxZoom: {
     type: Number
   },
-  // can't use style (reserved), use same approach as uber/react-map-gl
+  // We can't use `style` (reserved); `mapStyle` follows same approach as uber/react-map-gl
   mapStyle: {
     type: [Object, String]
   },
-
   antialias: {
     type: Boolean,
     default: true
@@ -121,7 +123,7 @@ export const props = {
   // trackResize: {
   //   type: Boolean,
   //   default: true
-    // },
+  // },
   center: {
     type: [Object, Array]
   },
@@ -142,46 +144,71 @@ export const props = {
 
 export default {
   name: 'v-mapbox',
+
+  // @QUESTION :: Why is this back? Now the whole map is reactive again..
   data () {
     return {
 	    map: null
     }
   },
+
   props,
+
   provide () {
-    // allows to use inject:  ['getMap']  in child components
+    // Allows us to use inject: ['getMap'] in child components
     return {
       getMap: () => this.map
     }
   },
+
+  methods: {
+    addLayers () {
+      // @TODO :: consider sorting or using slots if we run into render order problems
+      // let [...children] = this.$children
+      // children.sort(child => {
+      //   return child.key
+      // })
+      this.$children.forEach(child => {
+        child.deferredMountedTo(this.map)
+      })
+    },
+
+    resize() {
+      if (this.map) {
+        this.map.resize()
+      }
+    }
+  },
+
   mounted () {
-    //Initialze Map
+    // Initialize Map
     mapboxgl.accessToken = this.accessToken
 
-
+    // Gather all options to inialize the mapbox map
     let options = propsDefaults(props, this.$props)
-
     options.container = this.$el
 
-    // Note that we don't add this.map to data
-    // It does not have to be observed. See:
+    // Note that we don't add `this.map` to data.
+    // For performance reasons, it does not have to be observed. See:
     // https://github.com/vuejs/vue/issues/2637#issuecomment-207076744
     this.map = new mapboxgl.Map(options)
 
-    // listen to property changes and set the corresponding data in mapbox
+    // Listen to property changes and set the corresponding data in mapbox
     propsBinder(this, this.map, options)
 
-    // emit a map created event
+    // Emit a map created event
     this.$emit('mb-created', this.map)
-    bindMapEvents(this, this.map, mapEvents)
 
-    // ones the map  is loaded, add al layers that were present during mount time
-    // we can consider watching our children.
+    // Bind all map events
+    bindMapEvents(this, this.map, MAP_EVENTS)
+
+    // Once the map is loaded, add all layers that were present during mount time
     this.$on('mb-load', () => {
       this.addLayers()
     })
+
+    // If the style was changed, wait for the styledata to be loaded and re-add all the layers
     this.$on('style:update', () => {
-      // if the style was changed,  wait for the styledata to be loaded and re-add all the layers
       this.$once('mb-styledata', () => {
         this.addLayers()
       })
@@ -193,26 +220,6 @@ export default {
     let observer = new ResizeObserver(this.resize)
     observer.observe(this.$el)
     this.resizeObserver = observer
-  },
-  methods: {
-    addLayers () {
-      let [...children] = this.$children
-      // TODO: consider sorting or using slots if we run to render order problems
-      // children.sort(child => {
-      //   return child.key
-      // })
-      this.$children.forEach(
-        (child) => {
-          child.deferredMountedTo(this.map)
-        }
-      )
-
-    },
-    resize() {
-      if (this.map) {
-        this.map.resize()
-      }
-    }
   }
 }
 </script>
