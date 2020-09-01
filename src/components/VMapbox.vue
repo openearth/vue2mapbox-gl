@@ -4,6 +4,7 @@
     Note: If you put a id on the main element it won't work with multiple maps on one page (for example with compare plugin).
   -->
   <div>
+    <!-- Are these named slots actually ever used?-->
     <slot name="layers"></slot>
     <slot name="sources"></slot>
     <slot></slot>
