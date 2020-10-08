@@ -192,7 +192,7 @@ export default {
       const thisIndex = this.mapLayers.findIndex(({ id }) => id === layerOptions.id)
       const nextItem = this.mapLayers[thisIndex + 1]
       const maybeBefore = nextItem ? nextItem.id : undefined
-      const existingLayer = this.map.getLayer(maybeBefore)
+      const existingLayer = maybeBefore && this.map.getLayer(maybeBefore)
       const before = existingLayer ? maybeBefore : undefined
       this.map.addLayer(layerOptions, before)
     },
