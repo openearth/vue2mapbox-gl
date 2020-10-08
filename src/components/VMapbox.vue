@@ -14,6 +14,7 @@
 <script>
 import mapboxgl from 'mapbox-gl'
 import { propsBinder, propsDefaults } from '../utils/propsBinder.js'
+import { uniqueInArrayById } from '../utils/helpers'
 import { bindMapEvents } from '../utils/eventsBinder.js'
 
 const MAP_EVENTS = [
@@ -146,31 +147,88 @@ export const props = {
 export default {
   name: 'v-mapbox',
 
-  // @QUESTION :: Why is this back? Now the whole map is reactive again..
   data () {
     return {
-	    map: null
+      map: null,  // @QUESTION :: Why is this back? Now the whole map is reactive again..
+      mapInitialized: false,
+      mapLayers: []
     }
   },
 
   props,
 
   provide () {
-    // Allows us to use inject: ['getMap'] in child components
     return {
-      getMap: () => this.map
+      getMap: () => this.map,
+      getMapMethods: () => ({
+        addLayer: this.addLayerToArray,
+        removeLayer: this.removeLayerFromArray,
+        updateLayer: this.updateLayer
+      }),
     }
   },
 
   methods: {
-    addLayers () {
-      // @TODO :: consider sorting or using slots if we run into render order problems
-      // let [...children] = this.$children
-      // children.sort(child => {
-      //   return child.key
-      // })
+    addLayerToArray(layerOptions, beforeId) {
+      // If we get a `beforeId`, we insert layer at that index
+      if(beforeId && beforeId !== layerOptions.id) {
+        const existingLayerIndex = this.mapLayers.findIndex(({ id }) => id === beforeId)
+        if(existingLayerIndex !== -1) {
+          this.mapLayers = Object.freeze([
+            ...this.mapLayers.slice(0, existingLayerIndex),
+            layerOptions,
+            ...this.mapLayers.slice(existingLayerIndex),
+          ])
+          return
+        }
+      }
+      // Otherwise we just add it at the tail
+      this.mapLayers = Object.freeze([ ...this.mapLayers, layerOptions ])
+    },
+
+    addLayerToMap(layerOptions) {
+      // We use the position in the array to predictably match
+      // the layer order in the mapbox instance
+      const thisIndex = this.mapLayers.findIndex(({ id }) => id === layerOptions.id)
+      const nextItem = this.mapLayers[thisIndex + 1]
+      const maybeBefore = nextItem ? nextItem.id : undefined
+      const existingLayer = this.map.getLayer(maybeBefore)
+      const before = existingLayer ? maybeBefore : undefined
+      this.map.addLayer(layerOptions, before)
+    },
+
+    removeLayerFromArray(layerId) {
+      this.mapLayers = this.mapLayers.filter(({ id }) => id !== layerId)
+    },
+
+    removeLayerFromMap(layerId) {
+      if(!this.map) return
+      const layer = this.map.getLayer(layerId)
+      if(!layer) return
+      const layerSource = layer.source
+      this.map.removeLayer(layerId)
+      if(layerSource && !this.map.getStyle().layers.some(({ source }) => source === layerSource)) {
+        this.map.removeSource(layerSource)
+      }
+    },
+
+    updateLayer(newLayerOptions) {
+      const index = this.mapLayers.findIndex(({ id }) => id === newLayerOptions.id)
+      if(index === -1) return
+      this.mapLayers = Object.freeze(
+        Object.assign([], this.mapLayers, { [index]: newLayerOptions })
+      )
+      this.removeLayerFromMap(newLayerOptions.id)
+      this.addLayerToMap(newLayerOptions)
+    },
+
+    addAllChildren () {
+      // Add layers
+      this.mapLayers.forEach(this.addLayerToMap)
+      // Add other children
       this.$children.forEach(child => {
-        child.deferredMountedTo(this.map)
+        if(child.deferredMountedTo)
+          child.deferredMountedTo(this.map)
       })
     },
 
@@ -205,13 +263,14 @@ export default {
 
     // Once the map is loaded, add all layers that were present during mount time
     this.$on('mb-load', () => {
-      this.addLayers()
+      this.mapInitialized = true
+      this.addAllChildren()
     })
 
     // If the style was changed, wait for the styledata to be loaded and re-add all the layers
     this.$on('style:update', () => {
       this.$once('mb-styledata', () => {
-        this.addLayers()
+        this.addAllChildren()
       })
     })
 
@@ -221,6 +280,16 @@ export default {
     let observer = new ResizeObserver(this.resize)
     observer.observe(this.$el)
     this.resizeObserver = observer
-  }
+  },
+
+  watch: {
+    mapLayers(newArr, oldArr) {
+      if(!this.mapInitialized) return
+      const addedLayers = uniqueInArrayById(newArr, oldArr)
+      const removedLayers = uniqueInArrayById(oldArr, newArr)
+      addedLayers.forEach(this.addLayerToMap)
+      removedLayers.forEach(({ id }) => { this.removeLayerFromMap(id) })
+    }
+  },
 }
 </script>
