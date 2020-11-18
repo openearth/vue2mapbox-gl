@@ -174,7 +174,7 @@ const dynamicLayersTemplate = `
  style="height: 300px;"
  :center="center"
 >
-  <v-mapbox-layer v-for="layer in layers" :layer="layer" :key="layer.id" :opacity="opacity" />
+  <v-mapbox-layer v-for="layer in layers" :options="layer" :key="layer.id" :opacity="opacity" />
 </v-mapbox>
 `
 

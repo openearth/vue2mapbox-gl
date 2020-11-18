@@ -69,7 +69,7 @@ export default {
 
     setOpacity() {
       const map = this.getMap();
-      const { id, type } = this.layer;
+      const { id, type } = this.options;
       map.setPaintProperty(id, `${ type }-opacity`, this.opacity);
     },
   },
