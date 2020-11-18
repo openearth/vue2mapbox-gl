@@ -19,6 +19,11 @@ export default {
       default: undefined
     },
 
+    clickable: {
+      type: Boolean,
+      default: false
+    },
+
     opacity: {
       type: Number,
       required: false,
@@ -47,6 +52,13 @@ export default {
       const map = this.getMap();
       map.addLayer(this.options, this.before);
 
+      if(this.clickable) {
+        const layerId = this.options.id;
+        map.on('click', layerId, this.clickFn);
+        map.on('mouseenter', layerId, this.mouseEnterFn);
+        map.on('mouseleave', layerId, this.mouseLeaveFn);
+      }
+
       if(!isNil(this.opacity)) {
         this.setOpacity();
       }
@@ -63,8 +75,27 @@ export default {
           if(layerSource && !map.getStyle().layers.some(({ source }) => source === layerSource)) {
             map.removeSource(layerSource);
           }
+          if(this.clickable) {
+            map.off('click', layerId, this.clickFn);
+            map.off('mouseenter', layerId, this.mouseEnterFn);
+            map.off('mouseleave', layerId, this.mouseLeaveFn);
+          }
         }
       }
+    },
+
+    clickFn(e) {
+      this.$emit('click', e);
+    },
+
+    mouseEnterFn() {
+      const map = this.getMap();
+      map.getCanvas().style.cursor = 'pointer';
+    },
+
+    mouseLeaveFn() {
+      const map = this.getMap();
+      map.getCanvas().style.cursor = '';
     },
 
     setOpacity() {
