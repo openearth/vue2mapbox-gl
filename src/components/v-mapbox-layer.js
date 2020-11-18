@@ -8,7 +8,7 @@ export default {
   render: () => null,
 
   props: {
-    layer: {
+    options: {
       type: Object,
       default: () => ({})
     },
@@ -16,7 +16,7 @@ export default {
     // Allows to place a layer before another
     before: {
       type: String,
-      default: null
+      default: undefined
     },
 
     clickable: {
@@ -50,7 +50,7 @@ export default {
 
     addLayer() {
       const map = this.getMap();
-      map.addLayer(this.layer, this.before);
+      map.addLayer(this.options, this.before);
 
       if(this.clickable) {
         const layerId = this.layer.id;
@@ -67,11 +67,14 @@ export default {
     removeLayer() {
       const map = this.getMap();
       if(map) {
-        const layerId = this.layer.id;
+        const layerId = this.options.id;
         const layer = map.getLayer(layerId);
         if(layer) {
+          const layerSource = layer.source;
           map.removeLayer(layerId);
-          map.removeSource(layer.source);
+          if(layerSource && !map.getStyle().layers.some(({ source }) => source === layerSource)) {
+            map.removeSource(layerSource);
+          }
           if(this.clickable) {
             map.off('click', layerId, this.clickFn);
             map.off('mouseenter', layerId, this.mouseEnterFn);
@@ -97,7 +100,7 @@ export default {
 
     setOpacity() {
       const map = this.getMap();
-      const { id, type } = this.layer;
+      const { id, type } = this.options;
       map.setPaintProperty(id, `${ type }-opacity`, this.opacity);
     },
   },
@@ -116,7 +119,7 @@ export default {
   },
 
   watch: {
-    layer: {
+    options: {
       deep: true,
       handler() {
         this.renderLayer();
