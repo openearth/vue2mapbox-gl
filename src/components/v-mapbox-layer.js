@@ -8,7 +8,7 @@ export default {
   render: () => null,
 
   props: {
-    layer: {
+    options: {
       type: Object,
       default: () => ({})
     },
@@ -16,7 +16,7 @@ export default {
     // Allows to place a layer before another
     before: {
       type: String,
-      default: null
+      default: undefined
     },
 
     opacity: {
@@ -45,7 +45,7 @@ export default {
 
     addLayer() {
       const map = this.getMap();
-      map.addLayer(this.layer, this.before);
+      map.addLayer(this.options, this.before);
 
       if(!isNil(this.opacity)) {
         this.setOpacity();
@@ -55,11 +55,14 @@ export default {
     removeLayer() {
       const map = this.getMap();
       if(map) {
-        const layerId = this.layer.id;
+        const layerId = this.options.id;
         const layer = map.getLayer(layerId);
         if(layer) {
+          const layerSource = layer.source;
           map.removeLayer(layerId);
-          map.removeSource(layer.source);
+          if(layerSource && !map.getStyle().layers.some(({ source }) => source === layerSource)) {
+            map.removeSource(layerSource);
+          }
         }
       }
     },
@@ -85,7 +88,7 @@ export default {
   },
 
   watch: {
-    layer: {
+    options: {
       deep: true,
       handler() {
         this.renderLayer();

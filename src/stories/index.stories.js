@@ -161,9 +161,9 @@ const sortingTemplate = `
  :center="[0, 0]"
 >
  <!-- green (we want this on top) -->
- <v-mapbox-layer :layer="layerA"></v-mapbox-layer>
+ <v-mapbox-layer :options="layerA"></v-mapbox-layer>
  <!-- red -->
- <v-mapbox-layer :layer="layerB"></v-mapbox-layer>
+ <v-mapbox-layer :options="layerB"></v-mapbox-layer>
 </v-mapbox>
 `
 
@@ -185,7 +185,7 @@ const styleAndLayerTemplate = `
  style="height: 300px;"
  :center="[0, 0]"
 >
-  <v-mapbox-layer :layer="layerA"></v-mapbox-layer>
+  <v-mapbox-layer :options="layerA"></v-mapbox-layer>
 </v-mapbox>
 `
 
