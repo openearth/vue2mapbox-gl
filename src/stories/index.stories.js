@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import { storiesOf  } from '@storybook/vue';
-import { withKnobs, button } from '@storybook/addon-knobs';
+import { withKnobs, button, number } from '@storybook/addon-knobs';
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 // needed for  the  v-mapbox-geocoder
@@ -172,8 +172,9 @@ const dynamicLayersTemplate = `
  :map-style="style"
  access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
  style="height: 300px;"
+ :center="center"
 >
-  <v-mapbox-layer v-for="layer in layers" :options="layer" :key="layer.id" />
+  <v-mapbox-layer v-for="layer in layers" :options="layer" :key="layer.id" :opacity="opacity" />
 </v-mapbox>
 `
 
@@ -210,6 +211,7 @@ storiesOf('Map', module)
       }
     }
   })
+
   .add('map with center and layers', () => {
     return {
       data () {
@@ -291,7 +293,7 @@ storiesOf('Map', module)
     }
   })
   .addDecorator(withKnobs)
-  .add('style  change', () => {
+  .add('style change', () => {
     return {
       template: styleTemplate,
       data () {
@@ -353,7 +355,9 @@ storiesOf('Map', module)
       template: dynamicLayersTemplate,
       data: () => ({
         style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
-        layers: []
+        layers: [],
+        center: [0, 0],
+        opacity: 1
       }),
       mounted() {
         button('Toggle layer A', this.toggleLayerA),
@@ -371,6 +375,27 @@ storiesOf('Map', module)
           else this.layers = [ ...this.layers, layerB];
         }
       }
+    }
+  })
+
+  .add('change opacity for layer', () => {
+    return {
+      template: dynamicLayersTemplate,
+      props: {
+        opacity: {
+          default: number('Layer opacity', 1, {
+            range: true,
+            min: 0,
+            max: 1,
+            step: 0.01
+          })
+        }
+      },
+      data: () => ({
+        style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
+        center: [0, 0],
+        layers: [ layerA ],
+      })
     }
   })
 
