@@ -1,44 +1,80 @@
 export default {
   name: 'v-mapbox-layer',
-  render () { },
-  data () {
-    return {
-    };
-  },
+
+  inject: ['getMap'],
+
+  render: () => null,
+
   props: {
     options: {
-      default: () => {
-        return {};
-      },
-      type: [Object, String]
+      type: Object,
+      default: () => ({})
     },
-    // allows to place a layer before another
+
+    // Allows to place a layer before another
     before: {
       type: String,
-      required: false
+      default: undefined
     }
   },
-  mounted () {
-  },
+
+  data: () => ({
+    isInitialized: false
+  }),
+
   methods: {
-    deferredMountedTo(map) {
-      // if we were already mounted, we need  to remove the old layr
-      let oldLayer = map.getLayer(this.options.id)
-      if (oldLayer) {
-        map.removeLayer(this.options.id)
-        try {
-          map.removeSource(oldLayer.source)
-        } catch {
-          console.warn('could not remove source', oldLayer.source)
+    deferredMountedTo() {
+      if(!this.isInitialized) {
+        this.renderLayer();
+        this.isInitialized = true;
+      }
+    },
+
+    renderLayer() {
+      this.removeLayer();
+      this.addLayer();
+    },
+
+    addLayer() {
+      const map = this.getMap();
+      map.addLayer(this.options, this.before);
+    },
+
+    removeLayer() {
+      const map = this.getMap();
+      if(map) {
+        const layerId = this.options.id;
+        const layer = map.getLayer(layerId);
+        if(layer) {
+          const layerSource = layer.source;
+          map.removeLayer(layerId);
+          if(layerSource && !map.getStyle().layers.some(({ source }) => source === layerSource)) {
+            map.removeSource(layerSource);
+          }
         }
       }
-      // if we  want to add a layer before another layer, use the before option
-      if (this.before) {
-        map.addLayer(this.options, this.before)
-      } else {
-        map.addLayer(this.options)
+    },
+  },
+
+  mounted() {
+    const map = this.getMap();
+    // We can immediately initialize if we have the map ready
+    if(map && map.isStyleLoaded()) {
+      this.renderLayer();
+      this.isInitialized = true;
+    }
+  },
+
+  destroyed() {
+    this.removeLayer();
+  },
+
+  watch: {
+    options: {
+      deep: true,
+      handler() {
+        this.renderLayer();
       }
-      let layer = map.getLayer(this.options.id)
     }
   }
 };

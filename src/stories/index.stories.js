@@ -1,9 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 
-import { storiesOf, addDecorator } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, text, number, boolean, array, select, color, date, button } from '@storybook/addon-knobs';
-import { linkTo } from '@storybook/addon-links';
+import { storiesOf  } from '@storybook/vue';
+import { withKnobs, button } from '@storybook/addon-knobs';
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 // needed for  the  v-mapbox-geocoder
@@ -31,7 +29,6 @@ const zoomTemplate = `
  style="height: 300px;"
 />
 `
-
 
 const navigationTemplate = `
 <v-mapbox
@@ -88,7 +85,6 @@ const canvasTemplate = `
 </div>
 `
 
-
 const injectTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
@@ -128,6 +124,7 @@ const layerA = {
     'fill-opacity': 1
   }
 }
+
 const layerB = {
   'id': 'b',
   'type': 'fill',
@@ -166,7 +163,17 @@ const sortingTemplate = `
  <!-- green (we want this on top) -->
  <v-mapbox-layer :options="layerA"></v-mapbox-layer>
  <!-- red -->
- <v-mapbox-layer before="a" :options="layerB"></v-mapbox-layer>
+ <v-mapbox-layer :options="layerB"></v-mapbox-layer>
+</v-mapbox>
+`
+
+const dynamicLayersTemplate = `
+<v-mapbox
+ :map-style="style"
+ access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ style="height: 300px;"
+>
+  <v-mapbox-layer v-for="layer in layers" :options="layer" :key="layer.id" />
 </v-mapbox>
 `
 
@@ -177,12 +184,9 @@ const styleAndLayerTemplate = `
  style="height: 300px;"
  :center="[0, 0]"
 >
- <!-- green (we want this on top) -->
- <v-mapbox-layer :options="layerA"></v-mapbox-layer>
+  <v-mapbox-layer :options="layerA"></v-mapbox-layer>
 </v-mapbox>
 `
-
-
 
 storiesOf('Map', module)
   .add('map', () => {
@@ -200,7 +204,7 @@ storiesOf('Map', module)
       },
       template: zoomTemplate,
       mounted () {
-        button('random  center', () => {
+        button('random center', () => {
           this.center = [Math.random() * 50, Math.random() * 50]
         })
       }
@@ -225,7 +229,6 @@ storiesOf('Map', module)
           map.setPaintProperty('a', 'fill-opacity', opacity)
         })
         button('toggle visibility', () => {
-          let opacity = Math.random()
           let visibility = map.getLayoutProperty('a', 'visibility')
           if (visibility === 'visible')  {
             visibility = 'none'
@@ -237,6 +240,7 @@ storiesOf('Map', module)
       }
     }
   })
+
   .add('map with navigation control', () => {
     return {
       template: navigationTemplate
@@ -330,6 +334,7 @@ storiesOf('Map', module)
       }
     }
   })
+
   .add('layer order', () => {
     return {
       template: sortingTemplate,
@@ -342,6 +347,33 @@ storiesOf('Map', module)
       },
     }
   })
+
+  .add('add and remove layers', () => {
+    return {
+      template: dynamicLayersTemplate,
+      data: () => ({
+        style: 'mapbox://styles/global-data-viewer/cjtss3jfb05w71fmra13u4qqm',
+        layers: []
+      }),
+      mounted() {
+        button('Toggle layer A', this.toggleLayerA),
+        button('Toggle layer B', this.toggleLayerB)
+      },
+      methods: {
+        toggleLayerA() {
+          const hasLayerA = this.layers.some(({ id }) => id === 'a');
+          if(hasLayerA) this.layers = this.layers.filter(({ id }) => id !== 'a');
+          else this.layers = [ ...this.layers, layerA];
+        },
+        toggleLayerB() {
+          const hasLayerB = this.layers.some(({ id }) => id === 'b');
+          if(hasLayerB) this.layers = this.layers.filter(({ id }) => id !== 'b');
+          else this.layers = [ ...this.layers, layerB];
+        }
+      }
+    }
+  })
+
   .add('preserve drawing buffer order', () => {
     return {
       template: canvasTemplate,
