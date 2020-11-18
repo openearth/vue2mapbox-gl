@@ -185,7 +185,7 @@ const clickableLayersTemplate = `
  style="height: 300px;"
  :center="center"
 >
-  <v-mapbox-layer v-for="layer in layers" :layer="layer" :key="layer.id" :clickable="true" @click="onLayerClick" />
+  <v-mapbox-layer v-for="layer in layers" :options="layer" :key="layer.id" :clickable="true" @click="onLayerClick" />
 </v-mapbox>
 `
 

@@ -53,7 +53,7 @@ export default {
       map.addLayer(this.options, this.before);
 
       if(this.clickable) {
-        const layerId = this.layer.id;
+        const layerId = this.options.id;
         map.on('click', layerId, this.clickFn);
         map.on('mouseenter', layerId, this.mouseEnterFn);
         map.on('mouseleave', layerId, this.mouseLeaveFn);
