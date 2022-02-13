@@ -3,6 +3,7 @@
 import { storiesOf  } from '@storybook/vue';
 import { withKnobs, button, number } from '@storybook/addon-knobs';
 
+import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 // needed for  the  v-mapbox-geocoder
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
@@ -14,6 +15,7 @@ Vue.use(Vue2MapboxGl)
 const mapTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ ref="map"
  access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
  style="height: 300px;"
 />
@@ -200,7 +202,7 @@ const styleAndLayerTemplate = `
 </v-mapbox>
 `
 
-storiesOf('Map', module)
+storiesOf('Basic map', module)
   .add('map', () => {
     return {
       template: mapTemplate
@@ -254,6 +256,8 @@ storiesOf('Map', module)
     }
   })
 
+storiesOf('Map controls', module)
+  .addDecorator(withKnobs)
   .add('map with navigation control', () => {
     return {
       template: navigationTemplate
@@ -269,40 +273,23 @@ storiesOf('Map', module)
       template: controlScaleTemplate
     }
   })
-  .addDecorator(withKnobs)
-  .add('map resize bug', () => {
+  .add('add/remove control', () => {
     return {
-      template: mapTemplate,
-      mounted () {
-        this.normal()
-        button('small', () => {
-          this.small()
-        })
-        button('big', () => {
-          this.big()
-        })
-        button('normal', () => {
-          this.normal()
-        })
-
-      },
-
-      methods: {
-        resize() {
-          this.$refs.map.map.resize()
-        },
-        small () {
-          this.$el.style = 'height: 200px; width: 300px; border: 1px solid red;'
-        },
-        big () {
-          this.$el.style = 'height: 800px; width: 800px; border: 1px solid red;'
-        },
-        normal () {
-          this.$el.style = 'height: 300px; width: 600px; border: 1px solid red;'
+      template: injectTemplate,
+      data () {
+        return {
+          geoLocateControl: true
         }
+      },
+      mounted () {
+        button('toggle control', () => {
+          this.geoLocateControl = !this.geoLocateControl
+        })
       }
     }
   })
+
+storiesOf('Map events', module)
   .addDecorator(withKnobs)
   .add('style change', () => {
     return {
@@ -331,23 +318,6 @@ storiesOf('Map', module)
       }
     }
   })
-  .addDecorator(withKnobs)
-  .add('add/remove control', () => {
-    return {
-      template: injectTemplate,
-      data () {
-        return {
-          geoLocateControl: true
-        }
-      },
-      mounted () {
-        button('toggle control', () => {
-          this.geoLocateControl = !this.geoLocateControl
-        })
-      }
-    }
-  })
-
   .add('layer order', () => {
     return {
       template: sortingTemplate,
@@ -360,7 +330,6 @@ storiesOf('Map', module)
       },
     }
   })
-
   .add('add and remove layers', () => {
     return {
       template: dynamicLayersTemplate,
@@ -447,7 +416,6 @@ storiesOf('Map', module)
     }
   })
 
-  .addDecorator(withKnobs)
   .add('style change with layers', () => {
     return {
       template: styleAndLayerTemplate,
@@ -472,6 +440,66 @@ storiesOf('Map', module)
         },
         light () {
           this.style = 'mapbox://styles/global-data-viewer/cjtslsula05as1fppvrh7n4rv'
+        }
+      }
+    }
+  })
+
+storiesOf('Map markers', module)
+  .addDecorator(withKnobs)
+  .add('add a marker', () => {
+    return {
+      template: mapTemplate,
+      data () {
+        return {
+        }
+      },
+      mounted () {
+        let map = this.$refs.map.map
+        let center = map.getCenter()
+        map.on('load', () => {
+          const marker = new mapboxgl.Marker()
+                .setLngLat(center)
+                .addTo(map);
+          map.addLayer(marker)
+        })
+      },
+      methods: {
+      }
+    }
+  })
+
+storiesOf('Map issues', module)
+  .addDecorator(withKnobs)
+  .add('map resize bug', () => {
+    return {
+      template: mapTemplate,
+      mounted () {
+        this.normal()
+        button('small', () => {
+          this.small()
+        })
+        button('big', () => {
+          this.big()
+        })
+        button('normal', () => {
+          this.normal()
+        })
+
+      },
+
+      methods: {
+        resize() {
+          this.$refs.map.map.resize()
+        },
+        small () {
+          this.$el.style = 'height: 200px; width: 300px; border: 1px solid red;'
+        },
+        big () {
+          this.$el.style = 'height: 800px; width: 800px; border: 1px solid red;'
+        },
+        normal () {
+          this.$el.style = 'height: 300px; width: 600px; border: 1px solid red;'
         }
       }
     }
