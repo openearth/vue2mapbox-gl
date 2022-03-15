@@ -59,10 +59,10 @@ export const props = {
   //   type: Boolean,
   //   default: false
   // },
-  // interactive: {
-  //   type: Boolean,
-  //   default: true
-  // },
+  interactive: {
+    type: Boolean,
+    default: true
+  },
   // bearingSnap: {
   //   type: Number
   // },
