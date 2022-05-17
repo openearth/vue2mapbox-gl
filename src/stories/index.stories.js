@@ -72,6 +72,17 @@ const styleTemplate = `
 </v-mapbox>
 `
 
+
+const nonInteractiveTemplate = `
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ style="height: 300px;"
+ :interactive="false"
+>
+</v-mapbox>
+`
+
 const canvasTemplate = `
 <div>
 <v-mapbox
@@ -474,5 +485,11 @@ storiesOf('Map', module)
           this.style = 'mapbox://styles/global-data-viewer/cjtslsula05as1fppvrh7n4rv'
         }
       }
+    }
+  })
+
+  .add('make non interactive map', () => {
+    return {
+      template: nonInteractiveTemplate
     }
   })
