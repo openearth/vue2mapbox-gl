@@ -50,7 +50,12 @@ export default {
 
     addLayer() {
       const map = this.getMap();
-      map.addLayer(this.options, this.before);
+      
+      if (this.before && map.getLayer(this.before)) {
+        map.addLayer(this.options, this.before)
+      } else {
+        map.addLayer(this.options)
+      }
 
       if(this.clickable) {
         const layerId = this.options.id;
