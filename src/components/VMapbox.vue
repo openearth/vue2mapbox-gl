@@ -221,6 +221,12 @@ export default {
     let observer = new ResizeObserver(this.resize)
     observer.observe(this.$el)
     this.resizeObserver = observer
-  }
+  },
+
+  destroyed () {
+    if (this.map) {
+      this.map.remove()
+    }
+  },
 }
 </script>

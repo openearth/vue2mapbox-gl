@@ -21,6 +21,7 @@ test('default properties', () => {
   let defaults = propsDefaults(VMapbox.props)
   let expected = {
    "antialias": true,
+   "interactive": true,
    "preserveDrawingBuffer": false,
   }
   expect(defaults).toEqual(expected)
