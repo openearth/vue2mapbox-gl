@@ -106,6 +106,16 @@ const injectTemplate = `
 </v-mapbox>
 `
 
+const customAttributionTemplate = `
+<v-mapbox
+ map-style="mapbox://styles/mapbox/satellite-streets-v10"
+ access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ style="height: 300px;"
+ :custom-attribution="['<a href=&quot;https://github.com/openearth/vue2mapbox-gl&quot;>Vue2Mapbox</a>', 'Custom attribution']"
+>
+</v-mapbox>
+`
+
 const layerA = {
   'id': 'a',
   'type': 'fill',
@@ -264,7 +274,11 @@ storiesOf('Map', module)
       }
     }
   })
-
+  .add('map with custom attribution', () => {
+    return {
+      template: customAttributionTemplate
+    }
+  })
   .add('map with navigation control', () => {
     return {
       template: navigationTemplate
