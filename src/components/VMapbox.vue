@@ -113,6 +113,9 @@ export const props = {
   //   type: Boolean,
   //   default: true
   // },
+  customAttribution: {
+    type: [String, Array]
+  },
   // doubleClickZoom: {
   //   type: Boolean,
   //   default: true
