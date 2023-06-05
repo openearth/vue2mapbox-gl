@@ -148,14 +148,6 @@ export const props = {
 
 export default {
   name: 'v-mapbox',
-
-  // @QUESTION :: Why is this back? Now the whole map is reactive again..
-  data () {
-    return {
-	    map: null
-    }
-  },
-
   props,
 
   provide () {
