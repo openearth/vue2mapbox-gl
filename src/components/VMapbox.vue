@@ -21,7 +21,7 @@ const MAP_EVENTS = [
   'zoomstart',
   'zoomend',
   'zoom',
-  'styledata'
+  'style.load'
 ]
 
 // Props that we want to proxy.
@@ -178,7 +178,7 @@ export default {
     },
 
     resize() {
-      if (this.map) {
+      if (this.map && this.map.getCanvas()) {
         this.map.resize()
       }
     }
@@ -211,9 +211,10 @@ export default {
       this.addLayers()
     })
 
-    // If the style was changed, wait for the styledata to be loaded and re-add all the layers
+    // If the style was changed, wait for the style to be loaded and re-add all the layers
+    // https://github.com/mapbox/mapbox-gl-js/issues/4006
     this.$on('style:update', () => {
-      this.$once('mb-styledata', () => {
+      this.$once('mb-style.load', () => {
         this.addLayers()
       })
     })
