@@ -177,6 +177,14 @@ export default {
       })
     },
 
+    refreshLayers() {
+      this.$children
+        .filter(child => child.$options.name === 'v-mapbox-layer')
+        .forEach(child => {
+          child.deferredMountedTo(this.map)
+        })
+    },
+
     resize() {
       if (this.map && this.map.getCanvas()) {
         this.map.resize()
@@ -215,7 +223,7 @@ export default {
     // https://github.com/mapbox/mapbox-gl-js/issues/4006
     this.$on('style:update', () => {
       this.$once('mb-style.load', () => {
-        this.addLayers()
+        this.refreshLayers()
       })
     })
 
