@@ -31,16 +31,9 @@ export default {
     }
   },
 
-  data: () => ({
-    isInitialized: false
-  }),
-
   methods: {
     deferredMountedTo() {
-      if(!this.isInitialized) {
-        this.renderLayer();
-        this.isInitialized = true;
-      }
+      this.renderLayer();
     },
 
     renderLayer() {
@@ -115,7 +108,6 @@ export default {
     // We can immediately initialize if we have the map ready
     if(map && map.isStyleLoaded()) {
       this.renderLayer();
-      this.isInitialized = true;
     }
   },
 

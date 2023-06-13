@@ -11,10 +11,12 @@ import Vue2MapboxGl from '../main.js'
 
 Vue.use(Vue2MapboxGl)
 
+const accessToken = process.env.MAPBOX_ACCESS_TOKEN;
+
 const mapTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
 />
 `
@@ -25,7 +27,7 @@ const zoomTemplate = `
  :center="center"
  :zoom="zoom"
  ref="map"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
 />
 `
@@ -33,7 +35,7 @@ const zoomTemplate = `
 const navigationTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
 >
  <v-mapbox-navigation-control></v-mapbox-navigation-control>
@@ -44,7 +46,7 @@ const navigationTemplate = `
 const controlTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
 >
  <v-mapbox-geolocate-control></v-mapbox-geolocate-control>
@@ -55,7 +57,7 @@ const controlTemplate = `
 const controlScaleTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 90vh;"
 >
  <v-mapbox-scale-control position="bottom-right"></v-mapbox-scale-control>
@@ -65,7 +67,7 @@ const controlScaleTemplate = `
 const styleTemplate = `
 <v-mapbox
  :map-style="style"
- access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ access-token="${accessToken}"
  style="height: 300px;"
 >
  <v-mapbox-navigation-control></v-mapbox-navigation-control>
@@ -76,7 +78,7 @@ const styleTemplate = `
 const nonInteractiveTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ access-token="${accessToken}"
  style="height: 300px;"
  :interactive="false"
 >
@@ -87,7 +89,7 @@ const canvasTemplate = `
 <div>
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  :preserve-drawing-buffer="true"
  ref="map"
  style="height: 300px;"
@@ -99,7 +101,7 @@ const canvasTemplate = `
 const injectTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
 >
  <v-mapbox-geolocate-control v-if="geoLocateControl"></v-mapbox-geolocate-control>
@@ -109,7 +111,7 @@ const injectTemplate = `
 const customAttributionTemplate = `
 <v-mapbox
  map-style="mapbox://styles/mapbox/satellite-streets-v10"
- access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ access-token="${accessToken}"
  style="height: 300px;"
  :custom-attribution="['<a href=&quot;https://github.com/openearth/vue2mapbox-gl&quot;>Vue2Mapbox</a>', 'Custom attribution']"
 >
@@ -177,7 +179,7 @@ const layerB = {
 const sortingTemplate = `
 <v-mapbox
  :map-style="style"
- access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ access-token="${accessToken}"
  style="height: 300px;"
  :center="[0, 0]"
 >
@@ -191,7 +193,7 @@ const sortingTemplate = `
 const dynamicLayersTemplate = `
 <v-mapbox
  :map-style="style"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
  :center="center"
 >
@@ -202,7 +204,7 @@ const dynamicLayersTemplate = `
 const clickableLayersTemplate = `
 <v-mapbox
  :map-style="style"
- access-token="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+ access-token="${accessToken}"
  style="height: 300px;"
  :center="center"
 >
@@ -212,7 +214,7 @@ const clickableLayersTemplate = `
 
 const styleAndLayerTemplate = `
 <v-mapbox
- access-token="pk.eyJ1IjoiZ2xvYmFsLWRhdGEtdmlld2VyIiwiYSI6ImNqdG9lYWQ3NTFsNWk0M3Fqb2Q5dXBpeWUifQ.3DvxuGByM33VNa59rDogWw"
+ access-token="${accessToken}"
  :map-style="style"
  style="height: 300px;"
  :center="[0, 0]"
