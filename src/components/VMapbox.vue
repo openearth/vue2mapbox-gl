@@ -238,6 +238,7 @@ export default {
   destroyed () {
     if (this.map) {
       this.map.remove()
+      this.map = false
     }
   },
 }
