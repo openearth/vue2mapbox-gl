@@ -235,7 +235,7 @@ export default {
     // Mapbox has some resize issues
     // Create an observer on this object
     // Call resize on the map when we change szie
-    let observer = new ResizeObserver(this.)
+    let observer = new ResizeObserver(this.resize)
     observer.observe(this.$refs.element)
     this.resizeObserver = observer
   },
