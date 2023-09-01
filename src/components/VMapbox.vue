@@ -216,14 +216,14 @@ export default {
     bindMapEvents(this, this.map, MAP_EVENTS)
 
     // Once the map is loaded, add all layers that were present during mount time
-    this.$on('mb-load', () => {
+    this.map.on('load', () => {
       this.addLayers()
     })
 
     // If the style was changed, wait for the style to be loaded and re-add all the layers
     // https://github.com/mapbox/mapbox-gl-js/issues/4006
-    this.$on('style:update', () => {
-      this.$once('mb-style.load', () => {
+    this.map.on('style:update', () => {
+      this.$once('style.load', () => {
         this.refreshLayers()
       })
     })
