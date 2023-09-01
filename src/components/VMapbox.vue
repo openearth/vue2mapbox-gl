@@ -40,7 +40,7 @@ export const props = {
   // @QUESTION :: This gets overridden by default, do we really need this?
   container: {
     type: [HTMLElement, String],
-    default: None
+    default: null
   },
   minZoom: {
     type: Number
