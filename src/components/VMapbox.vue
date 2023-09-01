@@ -222,8 +222,8 @@ export default {
 
     // If the style was changed, wait for the style to be loaded and re-add all the layers
     // https://github.com/mapbox/mapbox-gl-js/issues/4006
-    this.map.on('style:update', () => {
-      this.$once('style.load', () => {
+    this.map.on('styledata', () => {
+      this.map.on('style.load', () => {
         this.refreshLayers()
       })
     })
