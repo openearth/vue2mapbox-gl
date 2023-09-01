@@ -39,7 +39,8 @@ export const props = {
   // always this component
   // @QUESTION :: This gets overridden by default, do we really need this?
   container: {
-    type: [HTMLElement, String]
+    type: [HTMLElement, String],
+    default: None
   },
   minZoom: {
     type: Number
@@ -198,7 +199,7 @@ export default {
 
     // Gather all options to inialize the mapbox map
     let options = propsDefaults(props, this.$props)
-    options.container = this.$el
+    options.container = this.container || this.$el
 
     // Note that we don't add `this.map` to data.
     // For performance reasons, it does not have to be observed. See:
