@@ -5,7 +5,7 @@
   -->
   <div>
     <!-- Are these named slots actually ever used?-->
-    <slot name="layers"></slot>
+    <slot name="layers" ref="children"></slot>
     <slot name="sources"></slot>
     <slot></slot>
   </div>
@@ -173,13 +173,13 @@ export default {
       // children.sort(child => {
       //   return child.key
       // })
-      this.$children.forEach(child => {
+      this.$refs.children.forEach(child => {
         child.deferredMountedTo(this.map)
       })
     },
 
     refreshLayers() {
-      this.$children
+      this.$refs.children
         .filter(child => child.$options.name === 'v-mapbox-layer')
         .forEach(child => {
           child.deferredMountedTo(this.map)
@@ -232,7 +232,7 @@ export default {
     // Create an observer on this object
     // Call resize on the map when we change szie
     let observer = new ResizeObserver(this.resize)
-    observer.observe(this.$el)
+    observer.observe(this.container)
     this.resizeObserver = observer
   },
 
