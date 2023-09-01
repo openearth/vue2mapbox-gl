@@ -173,6 +173,7 @@ export default {
       // children.sort(child => {
       //   return child.key
       // })
+      console.log(this, this.$refs.children)
       this.$refs.children.forEach(child => {
         child.deferredMountedTo(this.map)
       })
