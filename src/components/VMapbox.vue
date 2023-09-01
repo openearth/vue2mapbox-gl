@@ -3,10 +3,11 @@
     The main div will receive class `mapboxgl-map`; you can use that class for styling.
     Note: If you put a id on the main element it won't work with multiple maps on one page (for example with compare plugin).
   -->
-  <div>
+  <div ref="element">
+
     <!-- Are these named slots actually ever used?-->
     <slot name="layers" ref="children"></slot>
-    <slot name="sources"></slot>
+    <slot name="sources" ref="children"></slot>
     <slot></slot>
   </div>
 </template>
@@ -174,13 +175,15 @@ export default {
       //   return child.key
       // })
       console.log(this, this.$refs.children)
-      this.$refs.children.forEach(child => {
+      const children = this.$refs.children || []
+      children.forEach(child => {
         child.deferredMountedTo(this.map)
       })
     },
 
     refreshLayers() {
-      this.$refs.children
+      const children = this.$refs.children || []
+      children
         .filter(child => child.$options.name === 'v-mapbox-layer')
         .forEach(child => {
           child.deferredMountedTo(this.map)
@@ -232,8 +235,8 @@ export default {
     // Mapbox has some resize issues
     // Create an observer on this object
     // Call resize on the map when we change szie
-    let observer = new ResizeObserver(this.resize)
-    observer.observe(this.container)
+    let observer = new ResizeObserver(this.)
+    observer.observe(this.$refs.element)
     this.resizeObserver = observer
   },
 
