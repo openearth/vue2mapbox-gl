@@ -6,8 +6,8 @@
   <div ref="element">
 
     <!-- Are these named slots actually ever used?-->
-    <slot name="layers" ref="children"></slot>
-    <slot name="sources" ref="children"></slot>
+    <slot name="layers"></slot>
+    <slot name="sources"></slot>
     <slot></slot>
   </div>
 </template>
@@ -174,15 +174,15 @@ export default {
       // children.sort(child => {
       //   return child.key
       // })
-      console.log(this, this.$refs.children)
-      const children = this.$refs.children || []
+      console.log(this, this.$slots.default())
+      const children = this.$slots.default()
       children.forEach(child => {
         child.deferredMountedTo(this.map)
       })
     },
 
     refreshLayers() {
-      const children = this.$refs.children || []
+      const children = this.$slots.default()
       children
         .filter(child => child.$options.name === 'v-mapbox-layer')
         .forEach(child => {
