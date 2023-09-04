@@ -177,8 +177,10 @@ export default {
       console.log(this, this.$slots.default())
       const children = this.$slots.default()
       children.forEach(child => {
-        child.type.methods.deferredMountedTo(this.map)
-      })
+        if (_.has(child, 'type.methods')) {
+            child.type.methods.deferredMountedTo(this.map)
+          }
+        })
     },
 
     refreshLayers() {
@@ -186,7 +188,9 @@ export default {
       children
         .filter(child => child.$options.name === 'v-mapbox-layer')
         .forEach(child => {
-          child.type.methods.deferredMountedTo(this.map)
+          if (_.has(child, 'type.methods')) {
+            child.type.methods.deferredMountedTo(this.map)
+          }
         })
     },
 
