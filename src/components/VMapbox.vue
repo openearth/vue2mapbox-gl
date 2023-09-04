@@ -177,7 +177,7 @@ export default {
       console.log(this, this.$slots.default())
       const children = this.$slots.default()
       children.forEach(child => {
-        child.deferredMountedTo(this.map)
+        child.type.methods.deferredMountedTo(this.map)
       })
     },
 
@@ -186,7 +186,7 @@ export default {
       children
         .filter(child => child.$options.name === 'v-mapbox-layer')
         .forEach(child => {
-          child.deferredMountedTo(this.map)
+          child.type.methods.deferredMountedTo(this.map)
         })
     },
 
