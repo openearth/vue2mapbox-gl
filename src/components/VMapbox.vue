@@ -177,6 +177,7 @@ export default {
       console.log(this, this.$slots.default())
       const children = this.$slots.default()
       children.forEach(child => {
+        console.log(child)
         if (_.has(child, 'type.methods')) {
             child.type.methods.deferredMountedTo(this.map)
           }

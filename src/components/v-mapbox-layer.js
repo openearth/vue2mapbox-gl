@@ -7,6 +7,8 @@ export default {
 
   render: () => null,
 
+  expose: ['deferredMountedTo'],
+
   props: {
     options: {
       type: Object,
@@ -33,6 +35,7 @@ export default {
 
   methods: {
     deferredMountedTo() {
+      console.log('Hello')
       this.renderLayer();
     },
 
