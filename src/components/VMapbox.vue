@@ -3,7 +3,8 @@
     The main div will receive class `mapboxgl-map`; you can use that class for styling.
     Note: If you put a id on the main element it won't work with multiple maps on one page (for example with compare plugin).
   -->
-  <div>
+  <div ref="element">
+
     <!-- Are these named slots actually ever used?-->
     <slot name="layers"></slot>
     <slot name="sources"></slot>
@@ -39,7 +40,8 @@ export const props = {
   // always this component
   // @QUESTION :: This gets overridden by default, do we really need this?
   container: {
-    type: [HTMLElement, String]
+    type: [HTMLElement, String],
+    default: null
   },
   minZoom: {
     type: Number
@@ -176,16 +178,24 @@ export default {
       // children.sort(child => {
       //   return child.key
       // })
-      this.$children.forEach(child => {
-        child.deferredMountedTo(this.map)
-      })
+      console.log(this, this.$slots.default())
+      const children = this.$slots.default()
+      children.forEach(child => {
+        console.log(child)
+        if (_.has(child, 'type.methods')) {
+            child.type.methods.deferredMountedTo(this.map)
+          }
+        })
     },
 
     refreshLayers() {
-      this.$children
+      const children = this.$slots.default()
+      children
         .filter(child => child.$options.name === 'v-mapbox-layer')
         .forEach(child => {
-          child.deferredMountedTo(this.map)
+          if (_.has(child, 'type.methods')) {
+            child.type.methods.deferredMountedTo(this.map)
+          }
         })
     },
 
@@ -202,7 +212,7 @@ export default {
 
     // Gather all options to inialize the mapbox map
     let options = propsDefaults(props, this.$props)
-    options.container = this.$el
+    options.container = this.container || this.$el
 
     // Note that we don't add `this.map` to data.
     // For performance reasons, it does not have to be observed. See:
@@ -219,14 +229,14 @@ export default {
     bindMapEvents(this, this.map, MAP_EVENTS)
 
     // Once the map is loaded, add all layers that were present during mount time
-    this.$on('mb-load', () => {
+    this.map.on('load', () => {
       this.addLayers()
     })
 
     // If the style was changed, wait for the style to be loaded and re-add all the layers
     // https://github.com/mapbox/mapbox-gl-js/issues/4006
-    this.$on('style:update', () => {
-      this.$once('mb-style.load', () => {
+    this.map.on('styledata', () => {
+      this.map.on('style.load', () => {
         this.refreshLayers()
       })
     })
@@ -235,7 +245,7 @@ export default {
     // Create an observer on this object
     // Call resize on the map when we change szie
     let observer = new ResizeObserver(this.resize)
-    observer.observe(this.$el)
+    observer.observe(this.$refs.element)
     this.resizeObserver = observer
   },
 
