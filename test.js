@@ -23,6 +23,7 @@ test('default properties', () => {
    "antialias": true,
    "interactive": true,
    "preserveDrawingBuffer": false,
+   "useWebGL2": false
   }
   expect(defaults).toEqual(expected)
 })
