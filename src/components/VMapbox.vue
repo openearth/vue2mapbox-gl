@@ -143,7 +143,11 @@ export const props = {
   // renderWorldCopies: {
   //   type: Boolean,
   //   default: true
-  // }
+  // },
+  useWebGL2: {
+    type: Boolean,
+    default: false
+  }
 }
 
 export default {
